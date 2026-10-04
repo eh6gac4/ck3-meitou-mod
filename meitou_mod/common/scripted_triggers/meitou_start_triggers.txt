@@ -63,3 +63,13 @@ meitou_upgrade_eligible_artifact_trigger = {
     }
     NOT = { has_artifact_modifier = meitou_honed_blade_modifier }
 }
+
+# Character scope. These are the CK3 baronies Kyo, Oku, Kuboya, and Mii.
+meitou_swordsmith_destination_trigger = {
+    OR = {
+        location = province:10603 # b_kyo, Yamashiro
+        location = province:10587 # b_oku, Bizen
+        location = province:10583 # b_kuboya, Bitchu
+        location = province:10533 # b_mii, Chikugo
+    }
+}

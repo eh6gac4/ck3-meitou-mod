@@ -251,7 +251,7 @@ class EventChains(unittest.TestCase):
         self.assertEqual(*languages)
         for key, block in self.events.items():
             for k, _, val in walk(block):
-                if k in ('title', 'desc', 'name'):
+                if k in ('title', 'desc', 'name') and isinstance(val, str):
                     self.assertIn(val, languages[0])
                 if k == 'trigger_event':
                     self.assertIn(one(val, 'id'), self.events)

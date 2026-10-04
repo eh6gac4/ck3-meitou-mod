@@ -3,14 +3,37 @@ namespace = meitou_upgrade
 meitou_upgrade.0001 = {
     type = character_event
     title = meitou_upgrade.0001.t
-    desc = meitou_upgrade.0001.desc
-    theme = stewardship
+    desc = {
+        first_valid = {
+            triggered_desc = {
+                trigger = { location = province:10603 }
+                desc = meitou_upgrade.0001.desc_kyo
+            }
+            triggered_desc = {
+                trigger = { location = province:10587 }
+                desc = meitou_upgrade.0001.desc_oku
+            }
+            triggered_desc = {
+                trigger = { location = province:10583 }
+                desc = meitou_upgrade.0001.desc_kuboya
+            }
+            triggered_desc = {
+                trigger = { location = province:10533 }
+                desc = meitou_upgrade.0001.desc_mii
+            }
+            triggered_desc = { desc = meitou_upgrade.0001.desc }
+        }
+    }
+    theme = travel
     trigger = {
         is_ai = no
-        is_adult = yes
+        is_available_travelling_adult = yes
+        meitou_swordsmith_destination_trigger = yes
+        NOT = { has_character_flag = meitou_upgrade_recent_encounter }
         any_character_artifact = { meitou_upgrade_eligible_artifact_trigger = yes }
     }
     immediate = {
+        add_character_flag = { flag = meitou_upgrade_recent_encounter days = 365 }
         random_character_artifact = {
             limit = { meitou_upgrade_eligible_artifact_trigger = yes }
             save_scope_as = meitou_upgrade_target

@@ -18,7 +18,7 @@ meitou_record_early_campaign_on_action = {
 
 # Arrival in a province during an active travel plan.
 on_travel_plan_movement = {
-    on_actions = { meitou_japan_discovery_on_action }
+    on_actions = { meitou_japan_discovery_on_action meitou_swordsmith_visit_on_action }
 }
 
 meitou_japan_discovery_on_action = {
@@ -119,15 +119,13 @@ meitou_japan_discovery_on_action = {
     }
 }
 
-# A rare owner event, independent of travel and available to early and late starts.
-on_yearly_events = {
-    on_actions = { meitou_upgrade_yearly_on_action }
-}
-
-meitou_upgrade_yearly_on_action = {
+# A smith's workshop can be encountered only on arrival at one of four baronies.
+meitou_swordsmith_visit_on_action = {
     trigger = {
         is_ai = no
-        is_adult = yes
+        is_available_travelling_adult = yes
+        meitou_swordsmith_destination_trigger = yes
+        NOT = { has_character_flag = meitou_upgrade_recent_encounter }
         any_character_artifact = { meitou_upgrade_eligible_artifact_trigger = yes }
     }
     effect = {

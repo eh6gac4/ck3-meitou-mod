@@ -239,12 +239,27 @@ class ScriptReferences(unittest.TestCase):
                              'prowess_no_portrait'), '1')
 
     def test_upgrade_event_uses_owned_artifact_and_one_payment(self):
-        yearly = one(self.on_actions, 'on_yearly_events')
-        self.assertIn('meitou_upgrade_yearly_on_action',
-                      [key for key, _, _ in one(yearly, 'on_actions')])
-        pulse = one(self.on_actions, 'meitou_upgrade_yearly_on_action')
+        self.assertNotIn('on_yearly_events', definitions(MOD / 'common/on_action/meitou_travel_on_actions.txt'))
+        movement = one(self.on_actions, 'on_travel_plan_movement')
+        self.assertIn('meitou_swordsmith_visit_on_action',
+                      [key for key, _, _ in one(movement, 'on_actions')])
+        pulse = one(self.on_actions, 'meitou_swordsmith_visit_on_action')
         self.assertEqual(one(one(one(pulse, 'effect'), 'random'), 'chance'), '10')
+        self.assertEqual(one(one(pulse, 'trigger'), 'meitou_swordsmith_destination_trigger'), 'yes')
+        self.assertEqual(one(one(one(pulse, 'trigger'), 'NOT'), 'has_character_flag'),
+                         'meitou_upgrade_recent_encounter')
         event = self.events['meitou_upgrade.0001']
+        self.assertEqual(one(one(event, 'trigger'), 'meitou_swordsmith_destination_trigger'), 'yes')
+        self.assertEqual(one(one(one(event, 'immediate'), 'add_character_flag'), 'days'), '365')
+        destinations = one(parse((MOD / 'common/scripted_triggers/meitou_start_triggers.txt').read_text()),
+                           'meitou_swordsmith_destination_trigger')
+        self.assertEqual({value for key, _, value in one(destinations, 'OR') if key == 'location'},
+                         {'province:10603', 'province:10587', 'province:10583', 'province:10533'})
+        desc = one(one(event, 'desc'), 'first_valid')
+        location_descs = [value for key, _, value in desc if key == 'triggered_desc'
+                          and any(k == 'trigger' for k, _, _ in value)]
+        self.assertEqual({one(one(item, 'trigger'), 'location') for item in location_descs},
+                         {'province:10603', 'province:10587', 'province:10583', 'province:10533'})
         self.assertEqual(one(one(one(event, 'immediate'), 'random_character_artifact'),
                              'save_scope_as'), 'meitou_upgrade_target')
         options = {one(value, 'name'): value for key, _, value in event if key == 'option'}
@@ -262,6 +277,18 @@ class ScriptReferences(unittest.TestCase):
                                 for key, _, value in walk(options[name])))
         self.assertFalse(any(key in ('add_artifact_modifier', 'remove_short_term_gold')
                              for key, _, _ in walk(options['meitou_upgrade.0001.c'])))
+
+    def test_swordsmith_destinations_match_installed_japan_baronies(self):
+        game = Path(os.environ.get('CK3_GAME_DIR',
+                    Path.home() / '.local/share/Steam/steamapps/common/Crusader Kings III/game'))
+        titles = game / 'common/landed_titles/01_japan.txt'
+        if not titles.is_file():
+            self.skipTest('CK3 Japan landed titles unavailable')
+        text = titles.read_text()
+        for barony, province in {'b_kyo': 10603, 'b_oku': 10587,
+                                 'b_kuboya': 10583, 'b_mii': 10533}.items():
+            with self.subTest(barony=barony):
+                self.assertRegex(text, rf'\b{barony}\s*=\s*\{{\s*province\s*=\s*{province}\b')
 
     def test_story_art_references_exist_in_installed_game(self):
         game = Path(os.environ.get('CK3_GAME_DIR',
