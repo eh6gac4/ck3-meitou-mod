@@ -1,0 +1,24 @@
+# All Under Heaven Japanese sword visuals.
+meitou_higekiri_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}
+meitou_hizamaru_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}
+
+meitou_mikazuki_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}
+
+meitou_dojigiri_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}
+
+meitou_ookanehira_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}

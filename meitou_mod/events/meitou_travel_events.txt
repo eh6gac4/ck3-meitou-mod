@@ -1,0 +1,34 @@
+namespace = meitou_travel
+
+meitou_travel.0999 = {
+    type = character_event
+    title = meitou_travel.0999.t
+    desc = meitou_travel.0999.desc
+    theme = travel
+    after = {
+        if = {
+            limit = { exists = scope:meitou_higekiri_guardian }
+            scope:meitou_higekiri_guardian = { silent_disappearance_effect = yes }
+        }
+        if = {
+            limit = { exists = scope:meitou_hizamaru_guardian }
+            scope:meitou_hizamaru_guardian = { silent_disappearance_effect = yes }
+        }
+        if = {
+            limit = { exists = scope:meitou_mikazuki_guardian }
+            scope:meitou_mikazuki_guardian = { silent_disappearance_effect = yes }
+        }
+        if = {
+            limit = { exists = scope:meitou_dojigiri_guardian }
+            scope:meitou_dojigiri_guardian = { silent_disappearance_effect = yes }
+        }
+        if = {
+            limit = { exists = scope:meitou_ookanehira_guardian }
+            scope:meitou_ookanehira_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.0999.a
+
+    }
+}

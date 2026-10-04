@@ -1,0 +1,302 @@
+namespace = meitou_travel
+
+# History-inspired fiction; see README for sources and mechanics.
+
+meitou_travel.0001 = {
+    type = character_event
+    title = meitou_travel.0001.t
+    desc = meitou_travel.0001.desc
+    theme = travel
+    override_background = { reference = ep2_travel_bridge }
+    left_portrait = {
+        character = root
+        animation = personality_rational
+    }
+    right_portrait = {
+        character = scope:meitou_higekiri_guardian
+        animation = personality_honorable
+    }
+    trigger = {
+        is_ai = no
+        meitou_higekiri_available_trigger = yes
+        OR = {
+            AND = {
+                is_available_travelling_adult = yes
+                location = { geographical_region = world_asia_japan }
+                NOT = { has_character_flag = meitou_higekiri_recent_encounter }
+            }
+            AND = {
+                debug_only = yes
+                has_character_flag = meitou_debug_higekiri_intro
+            }
+        }
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_higekiri_guardian } }
+            create_character = {
+                template = pool_repopulate_martial
+                age = { 60 70 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_higekiri_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+        remove_character_flag = meitou_debug_higekiri_intro
+        add_character_flag = { flag = meitou_higekiri_recent_encounter days = 180 }
+    }
+    option = {
+        name = meitou_travel.0001.a
+        trigger_event = { id = meitou_travel.0101 }
+    }
+    option = {
+        name = meitou_travel.leave
+        if = {
+            limit = { exists = scope:meitou_higekiri_guardian }
+            scope:meitou_higekiri_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+}
+
+meitou_travel.0101 = {
+    type = character_event
+    title = meitou_travel.0101.t
+    desc = meitou_travel.0101.desc
+    theme = travel
+    override_background = { reference = alley_night }
+    left_portrait = {
+        character = root
+        animation = personality_honorable
+    }
+    right_portrait = {
+        character = scope:meitou_higekiri_guardian
+        animation = personality_rational
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_higekiri_guardian } }
+            create_character = {
+                template = pool_repopulate_martial
+                age = { 60 70 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_higekiri_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    option = {
+        name = meitou_travel.0101.a
+        trigger = { meitou_higekiri_available_trigger = yes }
+        if = {
+            limit = { meitou_higekiri_available_trigger = yes }
+            if = {
+                limit = { prowess >= 12 }
+                random_list = {
+                    80 = {
+                        create_artifact_higekiri_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_higekiri_found
+                        trigger_event = { id = meitou_travel.0201 }
+                    }
+                    20 = {
+                        add_stress = 25
+                        trigger_event = { id = meitou_travel.0301 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        create_artifact_higekiri_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_higekiri_found
+                        trigger_event = { id = meitou_travel.0201 }
+                    }
+                    55 = {
+                        add_stress = 25
+                        trigger_event = { id = meitou_travel.0301 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0101.b
+        trigger = { meitou_higekiri_available_trigger = yes }
+        if = {
+            limit = { meitou_higekiri_available_trigger = yes }
+            if = {
+                limit = { diplomacy >= 12 }
+                random_list = {
+                    80 = {
+                        create_artifact_higekiri_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_higekiri_found
+                        trigger_event = { id = meitou_travel.0201 }
+                    }
+                    20 = {
+                        add_stress = 25
+                        trigger_event = { id = meitou_travel.0301 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        create_artifact_higekiri_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_higekiri_found
+                        trigger_event = { id = meitou_travel.0201 }
+                    }
+                    55 = {
+                        add_stress = 25
+                        trigger_event = { id = meitou_travel.0301 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0101.c
+        trigger = { meitou_higekiri_available_trigger = yes gold >= 45 }
+        if = {
+            limit = { meitou_higekiri_available_trigger = yes gold >= 45 }
+            remove_short_term_gold = 45
+            create_artifact_higekiri_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_higekiri_found
+                        trigger_event = { id = meitou_travel.0201 }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.withdraw
+        trigger = { meitou_higekiri_available_trigger = yes }
+        if = {
+            limit = { exists = scope:meitou_higekiri_guardian }
+            scope:meitou_higekiri_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.unavailable
+        trigger = { NOT = { meitou_higekiri_available_trigger = yes } }
+        trigger_event = { id = meitou_travel.0999 }
+    }
+    option = {
+        name = meitou_debug.force_success
+        trigger = { debug_only = yes is_ai = no meitou_higekiri_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_higekiri_available_trigger = yes }
+            create_artifact_higekiri_sword_effect = { OWNER = root }
+            set_global_variable = meitou_higekiri_found
+            trigger_event = { id = meitou_travel.0201 }
+        }
+    }
+    option = {
+        name = meitou_debug.force_failure
+        trigger = { debug_only = yes is_ai = no meitou_higekiri_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_higekiri_available_trigger = yes }
+            add_stress = 25
+            trigger_event = { id = meitou_travel.0301 }
+        }
+    }
+
+}
+
+meitou_travel.0201 = {
+    type = character_event
+    title = meitou_travel.0201.t
+    desc = meitou_travel.0201.desc
+    theme = travel
+    override_background = { reference = ep2_travel_bridge }
+    left_portrait = {
+        character = root
+        animation = happiness
+    }
+    right_portrait = {
+        character = scope:meitou_higekiri_guardian
+        animation = happiness
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_higekiri_guardian } }
+            create_character = {
+                template = pool_repopulate_martial
+                age = { 60 70 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_higekiri_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_higekiri_guardian }
+            scope:meitou_higekiri_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.0201.a
+
+    }
+}
+
+meitou_travel.0301 = {
+    type = character_event
+    title = meitou_travel.0301.t
+    desc = meitou_travel.0301.desc
+    theme = travel
+    override_background = { reference = alley_night }
+    left_portrait = {
+        character = root
+        animation = worry
+    }
+    right_portrait = {
+        character = scope:meitou_higekiri_guardian
+        animation = worry
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_higekiri_guardian } }
+            create_character = {
+                template = pool_repopulate_martial
+                age = { 60 70 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_higekiri_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_higekiri_guardian }
+            scope:meitou_higekiri_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.failure_end
+
+    }
+}

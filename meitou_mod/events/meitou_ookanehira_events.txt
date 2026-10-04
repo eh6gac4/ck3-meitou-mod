@@ -1,0 +1,302 @@
+namespace = meitou_travel
+
+# History-inspired fiction; see README for sources and mechanics.
+
+meitou_travel.0005 = {
+    type = character_event
+    title = meitou_travel.0005.t
+    desc = meitou_travel.0005.desc
+    theme = travel
+    override_background = { reference = tgp_ruined_holding }
+    left_portrait = {
+        character = root
+        animation = personality_rational
+    }
+    right_portrait = {
+        character = scope:meitou_ookanehira_guardian
+        animation = personality_honorable
+    }
+    trigger = {
+        is_ai = no
+        NOT = { has_global_variable = meitou_ookanehira_found }
+        OR = {
+            AND = {
+                is_available_travelling_adult = yes
+                location = { geographical_region = world_asia_japan }
+                NOT = { has_character_flag = meitou_ookanehira_recent_encounter }
+            }
+            AND = {
+                debug_only = yes
+                has_character_flag = meitou_debug_ookanehira_intro
+            }
+        }
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_ookanehira_guardian } }
+            create_character = {
+                template = pool_repopulate_stewardship
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_ookanehira_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+        remove_character_flag = meitou_debug_ookanehira_intro
+        add_character_flag = { flag = meitou_ookanehira_recent_encounter days = 180 }
+    }
+    option = {
+        name = meitou_travel.0005.a
+        trigger_event = { id = meitou_travel.0105 }
+    }
+    option = {
+        name = meitou_travel.leave
+        if = {
+            limit = { exists = scope:meitou_ookanehira_guardian }
+            scope:meitou_ookanehira_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+}
+
+meitou_travel.0105 = {
+    type = character_event
+    title = meitou_travel.0105.t
+    desc = meitou_travel.0105.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = personality_honorable
+    }
+    right_portrait = {
+        character = scope:meitou_ookanehira_guardian
+        animation = personality_rational
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_ookanehira_guardian } }
+            create_character = {
+                template = pool_repopulate_stewardship
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_ookanehira_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    option = {
+        name = meitou_travel.0105.a
+        trigger = { NOT = { has_global_variable = meitou_ookanehira_found } }
+        if = {
+            limit = { NOT = { has_global_variable = meitou_ookanehira_found } }
+            if = {
+                limit = { stewardship >= 12 }
+                random_list = {
+                    80 = {
+                        meitou_create_ookanehira_effect = { OWNER = root }
+                        set_global_variable = meitou_ookanehira_found
+                        trigger_event = { id = meitou_travel.0205 }
+                    }
+                    20 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0305 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        meitou_create_ookanehira_effect = { OWNER = root }
+                        set_global_variable = meitou_ookanehira_found
+                        trigger_event = { id = meitou_travel.0205 }
+                    }
+                    55 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0305 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0105.b
+        trigger = { NOT = { has_global_variable = meitou_ookanehira_found } }
+        if = {
+            limit = { NOT = { has_global_variable = meitou_ookanehira_found } }
+            if = {
+                limit = { martial >= 12 }
+                random_list = {
+                    80 = {
+                        meitou_create_ookanehira_effect = { OWNER = root }
+                        set_global_variable = meitou_ookanehira_found
+                        trigger_event = { id = meitou_travel.0205 }
+                    }
+                    20 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0305 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        meitou_create_ookanehira_effect = { OWNER = root }
+                        set_global_variable = meitou_ookanehira_found
+                        trigger_event = { id = meitou_travel.0205 }
+                    }
+                    55 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0305 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0105.c
+        trigger = { NOT = { has_global_variable = meitou_ookanehira_found } gold >= 60 }
+        if = {
+            limit = { NOT = { has_global_variable = meitou_ookanehira_found } gold >= 60 }
+            remove_short_term_gold = 60
+            meitou_create_ookanehira_effect = { OWNER = root }
+                        set_global_variable = meitou_ookanehira_found
+                        trigger_event = { id = meitou_travel.0205 }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.withdraw
+        trigger = { NOT = { has_global_variable = meitou_ookanehira_found } }
+        if = {
+            limit = { exists = scope:meitou_ookanehira_guardian }
+            scope:meitou_ookanehira_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.unavailable
+        trigger = { has_global_variable = meitou_ookanehira_found }
+        trigger_event = { id = meitou_travel.0999 }
+    }
+    option = {
+        name = meitou_debug.force_success
+        trigger = { debug_only = yes is_ai = no NOT = { has_global_variable = meitou_ookanehira_found } }
+        if = {
+            limit = { debug_only = yes is_ai = no NOT = { has_global_variable = meitou_ookanehira_found } }
+            meitou_create_ookanehira_effect = { OWNER = root }
+            set_global_variable = meitou_ookanehira_found
+            trigger_event = { id = meitou_travel.0205 }
+        }
+    }
+    option = {
+        name = meitou_debug.force_failure
+        trigger = { debug_only = yes is_ai = no NOT = { has_global_variable = meitou_ookanehira_found } }
+        if = {
+            limit = { debug_only = yes is_ai = no NOT = { has_global_variable = meitou_ookanehira_found } }
+            add_stress = 20
+            trigger_event = { id = meitou_travel.0305 }
+        }
+    }
+
+}
+
+meitou_travel.0205 = {
+    type = character_event
+    title = meitou_travel.0205.t
+    desc = meitou_travel.0205.desc
+    theme = travel
+    override_background = { reference = courtyard }
+    left_portrait = {
+        character = root
+        animation = happiness
+    }
+    right_portrait = {
+        character = scope:meitou_ookanehira_guardian
+        animation = happiness
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_ookanehira_guardian } }
+            create_character = {
+                template = pool_repopulate_stewardship
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_ookanehira_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_ookanehira_guardian }
+            scope:meitou_ookanehira_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.0205.a
+
+    }
+}
+
+meitou_travel.0305 = {
+    type = character_event
+    title = meitou_travel.0305.t
+    desc = meitou_travel.0305.desc
+    theme = travel
+    override_background = { reference = tgp_ruined_holding }
+    left_portrait = {
+        character = root
+        animation = worry
+    }
+    right_portrait = {
+        character = scope:meitou_ookanehira_guardian
+        animation = worry
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_ookanehira_guardian } }
+            create_character = {
+                template = pool_repopulate_stewardship
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_ookanehira_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_ookanehira_guardian }
+            scope:meitou_ookanehira_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.failure_end
+
+    }
+}

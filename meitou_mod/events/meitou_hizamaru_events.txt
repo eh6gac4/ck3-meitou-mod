@@ -1,0 +1,302 @@
+namespace = meitou_travel
+
+# History-inspired fiction; see README for sources and mechanics.
+
+meitou_travel.0002 = {
+    type = character_event
+    title = meitou_travel.0002.t
+    desc = meitou_travel.0002.desc
+    theme = travel
+    override_background = { reference = tgp_crossroad_inn_asia }
+    left_portrait = {
+        character = root
+        animation = personality_rational
+    }
+    right_portrait = {
+        character = scope:meitou_hizamaru_guardian
+        animation = personality_honorable
+    }
+    trigger = {
+        is_ai = no
+        meitou_hizamaru_available_trigger = yes
+        OR = {
+            AND = {
+                is_available_travelling_adult = yes
+                location = { geographical_region = world_asia_japan }
+                NOT = { has_character_flag = meitou_hizamaru_recent_encounter }
+            }
+            AND = {
+                debug_only = yes
+                has_character_flag = meitou_debug_hizamaru_intro
+            }
+        }
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_hizamaru_guardian } }
+            create_character = {
+                template = pool_repopulate_learning
+                age = { 20 35 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 50
+                save_scope_as = meitou_hizamaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+        remove_character_flag = meitou_debug_hizamaru_intro
+        add_character_flag = { flag = meitou_hizamaru_recent_encounter days = 180 }
+    }
+    option = {
+        name = meitou_travel.0002.a
+        trigger_event = { id = meitou_travel.0102 }
+    }
+    option = {
+        name = meitou_travel.leave
+        if = {
+            limit = { exists = scope:meitou_hizamaru_guardian }
+            scope:meitou_hizamaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+}
+
+meitou_travel.0102 = {
+    type = character_event
+    title = meitou_travel.0102.t
+    desc = meitou_travel.0102.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = personality_honorable
+    }
+    right_portrait = {
+        character = scope:meitou_hizamaru_guardian
+        animation = personality_rational
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_hizamaru_guardian } }
+            create_character = {
+                template = pool_repopulate_learning
+                age = { 20 35 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 50
+                save_scope_as = meitou_hizamaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    option = {
+        name = meitou_travel.0102.a
+        trigger = { meitou_hizamaru_available_trigger = yes }
+        if = {
+            limit = { meitou_hizamaru_available_trigger = yes }
+            if = {
+                limit = { learning >= 12 }
+                random_list = {
+                    80 = {
+                        create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_hizamaru_found
+                        trigger_event = { id = meitou_travel.0202 }
+                    }
+                    20 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0302 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_hizamaru_found
+                        trigger_event = { id = meitou_travel.0202 }
+                    }
+                    55 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0302 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0102.b
+        trigger = { meitou_hizamaru_available_trigger = yes }
+        if = {
+            limit = { meitou_hizamaru_available_trigger = yes }
+            if = {
+                limit = { diplomacy >= 12 }
+                random_list = {
+                    80 = {
+                        create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_hizamaru_found
+                        trigger_event = { id = meitou_travel.0202 }
+                    }
+                    20 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0302 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_hizamaru_found
+                        trigger_event = { id = meitou_travel.0202 }
+                    }
+                    55 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0302 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0102.c
+        trigger = { meitou_hizamaru_available_trigger = yes gold >= 40 }
+        if = {
+            limit = { meitou_hizamaru_available_trigger = yes gold >= 40 }
+            remove_short_term_gold = 40
+            create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_hizamaru_found
+                        trigger_event = { id = meitou_travel.0202 }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.withdraw
+        trigger = { meitou_hizamaru_available_trigger = yes }
+        if = {
+            limit = { exists = scope:meitou_hizamaru_guardian }
+            scope:meitou_hizamaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.unavailable
+        trigger = { NOT = { meitou_hizamaru_available_trigger = yes } }
+        trigger_event = { id = meitou_travel.0999 }
+    }
+    option = {
+        name = meitou_debug.force_success
+        trigger = { debug_only = yes is_ai = no meitou_hizamaru_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_hizamaru_available_trigger = yes }
+            create_artifact_hizamaru_sword_effect = { OWNER = root }
+            set_global_variable = meitou_hizamaru_found
+            trigger_event = { id = meitou_travel.0202 }
+        }
+    }
+    option = {
+        name = meitou_debug.force_failure
+        trigger = { debug_only = yes is_ai = no meitou_hizamaru_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_hizamaru_available_trigger = yes }
+            add_stress = 20
+            trigger_event = { id = meitou_travel.0302 }
+        }
+    }
+
+}
+
+meitou_travel.0202 = {
+    type = character_event
+    title = meitou_travel.0202.t
+    desc = meitou_travel.0202.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = happiness
+    }
+    right_portrait = {
+        character = scope:meitou_hizamaru_guardian
+        animation = happiness
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_hizamaru_guardian } }
+            create_character = {
+                template = pool_repopulate_learning
+                age = { 20 35 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 50
+                save_scope_as = meitou_hizamaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_hizamaru_guardian }
+            scope:meitou_hizamaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.0202.a
+
+    }
+}
+
+meitou_travel.0302 = {
+    type = character_event
+    title = meitou_travel.0302.t
+    desc = meitou_travel.0302.desc
+    theme = travel
+    override_background = { reference = tgp_crossroad_inn_asia }
+    left_portrait = {
+        character = root
+        animation = worry
+    }
+    right_portrait = {
+        character = scope:meitou_hizamaru_guardian
+        animation = worry
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_hizamaru_guardian } }
+            create_character = {
+                template = pool_repopulate_learning
+                age = { 20 35 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 50
+                save_scope_as = meitou_hizamaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_hizamaru_guardian }
+            scope:meitou_hizamaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.failure_end
+
+    }
+}

@@ -1,0 +1,98 @@
+meitou_create_higekiri_effect = {
+    $OWNER$ = { save_scope_as = owner }
+    set_artifact_rarity_illustrious = yes
+    create_artifact = {
+        name = meitou_higekiri_name
+        description = meitou_higekiri_desc
+        type = sword
+        visuals = meitou_higekiri_visual
+        wealth = scope:wealth
+        quality = scope:quality
+        history = { type = created_before_history }
+        modifier = meitou_higekiri_modifier
+        save_scope_as = newly_created_artifact
+        decaying = no
+    }
+    scope:newly_created_artifact = {
+        set_variable = { name = historical_unique_artifact value = yes }
+    }
+}
+meitou_create_hizamaru_effect = {
+    $OWNER$ = { save_scope_as = owner }
+    set_artifact_rarity_illustrious = yes
+    create_artifact = {
+        name = meitou_hizamaru_name
+        description = meitou_hizamaru_desc
+        type = sword
+        visuals = meitou_hizamaru_visual
+        wealth = scope:wealth
+        quality = scope:quality
+        history = { type = created_before_history }
+        modifier = meitou_hizamaru_modifier
+        save_scope_as = newly_created_artifact
+        decaying = no
+    }
+    scope:newly_created_artifact = {
+        set_variable = { name = historical_unique_artifact value = yes }
+    }
+}
+
+meitou_create_mikazuki_effect = {
+    $OWNER$ = { save_scope_as = owner }
+    set_artifact_rarity_illustrious = yes
+    create_artifact = {
+        name = meitou_mikazuki_name
+        description = meitou_mikazuki_desc
+        type = sword
+        visuals = meitou_mikazuki_visual
+        wealth = scope:wealth
+        quality = scope:quality
+        history = { type = created_before_history }
+        modifier = meitou_mikazuki_modifier
+        save_scope_as = newly_created_artifact
+        decaying = no
+    }
+    scope:newly_created_artifact = {
+        set_variable = { name = historical_unique_artifact value = yes }
+    }
+}
+
+meitou_create_dojigiri_effect = {
+    $OWNER$ = { save_scope_as = owner }
+    set_artifact_rarity_illustrious = yes
+    create_artifact = {
+        name = meitou_dojigiri_name
+        description = meitou_dojigiri_desc
+        type = sword
+        visuals = meitou_dojigiri_visual
+        wealth = scope:wealth
+        quality = scope:quality
+        history = { type = created_before_history }
+        modifier = meitou_dojigiri_modifier
+        save_scope_as = newly_created_artifact
+        decaying = no
+    }
+    scope:newly_created_artifact = {
+        set_variable = { name = historical_unique_artifact value = yes }
+    }
+}
+
+meitou_create_ookanehira_effect = {
+    $OWNER$ = { save_scope_as = owner }
+    set_artifact_rarity_illustrious = yes
+    create_artifact = {
+        name = meitou_ookanehira_name
+        description = meitou_ookanehira_desc
+        type = sword
+        visuals = meitou_ookanehira_visual
+        wealth = scope:wealth
+        quality = scope:quality
+        history = { type = created_before_history }
+        modifier = meitou_ookanehira_modifier
+        save_scope_as = newly_created_artifact
+        decaying = no
+    }
+    scope:newly_created_artifact = {
+        set_variable = { name = historical_unique_artifact value = yes }
+    }
+}

@@ -1,0 +1,28 @@
+# Vanilla seeds these four swords when a 1066 or later bookmark begins.
+# Keep the 867 campaign eligible even after its calendar reaches 1066.
+meitou_early_campaign_trigger = {
+    OR = {
+        current_date < 1066.9.15
+        has_global_variable = meitou_early_campaign
+    }
+}
+
+meitou_higekiri_available_trigger = {
+    meitou_early_campaign_trigger = yes
+    NOT = { has_global_variable = meitou_higekiri_found }
+}
+
+meitou_hizamaru_available_trigger = {
+    meitou_early_campaign_trigger = yes
+    NOT = { has_global_variable = meitou_hizamaru_found }
+}
+
+meitou_mikazuki_available_trigger = {
+    meitou_early_campaign_trigger = yes
+    NOT = { has_global_variable = meitou_mikazuki_found }
+}
+
+meitou_dojigiri_available_trigger = {
+    meitou_early_campaign_trigger = yes
+    NOT = { has_global_variable = meitou_dojigiri_found }
+}

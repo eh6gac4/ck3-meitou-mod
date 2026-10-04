@@ -1,0 +1,82 @@
+# Remember that vanilla did not seed the four historical swords in early starts.
+on_game_start = {
+    on_actions = { meitou_record_early_campaign_on_action }
+}
+
+meitou_record_early_campaign_on_action = {
+    effect = {
+        if = {
+            limit = { current_date < 1066.9.15 }
+            set_global_variable = meitou_early_campaign
+        }
+    }
+}
+
+# Arrival in a province during an active travel plan.
+on_travel_plan_movement = {
+    on_actions = { meitou_japan_discovery_on_action }
+}
+
+meitou_japan_discovery_on_action = {
+    trigger = {
+        is_ai = no
+        is_available_travelling_adult = yes
+        location = { geographical_region = world_asia_japan }
+    }
+    effect = {
+        if = {
+            limit = { current_date < 1066.9.15 NOT = { has_global_variable = meitou_early_campaign } }
+            set_global_variable = meitou_early_campaign
+        }
+        if = {
+            limit = {
+                meitou_higekiri_available_trigger = yes
+                NOT = { has_character_flag = meitou_higekiri_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0001 }
+            }
+        }
+        if = {
+            limit = {
+                meitou_hizamaru_available_trigger = yes
+                NOT = { has_character_flag = meitou_hizamaru_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0002 }
+            }
+        }
+        if = {
+            limit = {
+                meitou_mikazuki_available_trigger = yes
+                NOT = { has_character_flag = meitou_mikazuki_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0003 }
+            }
+        }
+        if = {
+            limit = {
+                meitou_dojigiri_available_trigger = yes
+                NOT = { has_character_flag = meitou_dojigiri_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0004 }
+            }
+        }
+        if = {
+            limit = {
+                NOT = { has_global_variable = meitou_ookanehira_found }
+                NOT = { has_character_flag = meitou_ookanehira_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0005 }
+            }
+        }
+    }
+}
