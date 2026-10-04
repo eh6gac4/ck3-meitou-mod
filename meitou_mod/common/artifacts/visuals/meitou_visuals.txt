@@ -22,3 +22,18 @@ meitou_ookanehira_visual = {
     icon = "tgp_japanese_sword_01_a.dds"
     asset = tgp_japanese_sword_01_a_portrait_entity
 }
+
+meitou_odenta_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}
+
+meitou_juzumaru_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}
+
+meitou_onimaru_visual = {
+    icon = "tgp_japanese_sword_01_a.dds"
+    asset = tgp_japanese_sword_01_a_portrait_entity
+}

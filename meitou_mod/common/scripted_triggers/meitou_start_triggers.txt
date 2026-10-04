@@ -26,3 +26,21 @@ meitou_dojigiri_available_trigger = {
     meitou_early_campaign_trigger = yes
     NOT = { has_global_variable = meitou_dojigiri_found }
 }
+
+# The base game seeds Odenta in campaigns begun on or after 1178.10.1.
+# A campaign begun earlier can still discover it after that date.
+meitou_odenta_available_trigger = {
+    OR = {
+        current_date < 1178.10.1
+        has_global_variable = meitou_odenta_unseeded_campaign
+    }
+    NOT = { has_global_variable = meitou_odenta_found }
+}
+
+meitou_juzumaru_available_trigger = {
+    NOT = { has_global_variable = meitou_juzumaru_found }
+}
+
+meitou_onimaru_available_trigger = {
+    NOT = { has_global_variable = meitou_onimaru_found }
+}

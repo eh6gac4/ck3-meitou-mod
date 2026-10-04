@@ -1,0 +1,302 @@
+namespace = meitou_travel
+
+# History-inspired fiction; see README for sources and mechanics.
+
+meitou_travel.0007 = {
+    type = character_event
+    title = meitou_travel.0007.t
+    desc = meitou_travel.0007.desc
+    theme = travel
+    override_background = { reference = tgp_relaxing_room_asia }
+    left_portrait = {
+        character = root
+        animation = personality_rational
+    }
+    right_portrait = {
+        character = scope:meitou_juzumaru_guardian
+        animation = personality_honorable
+    }
+    trigger = {
+        is_ai = no
+        meitou_juzumaru_available_trigger = yes
+        OR = {
+            AND = {
+                is_available_travelling_adult = yes
+                location = { geographical_region = world_asia_japan }
+                NOT = { has_character_flag = meitou_juzumaru_recent_encounter }
+            }
+            AND = {
+                debug_only = yes
+                has_character_flag = meitou_debug_juzumaru_intro
+            }
+        }
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_juzumaru_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_juzumaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+        remove_character_flag = meitou_debug_juzumaru_intro
+        add_character_flag = { flag = meitou_juzumaru_recent_encounter days = 180 }
+    }
+    option = {
+        name = meitou_travel.0007.a
+        trigger_event = { id = meitou_travel.0107 }
+    }
+    option = {
+        name = meitou_travel.leave
+        if = {
+            limit = { exists = scope:meitou_juzumaru_guardian }
+            scope:meitou_juzumaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+}
+
+meitou_travel.0107 = {
+    type = character_event
+    title = meitou_travel.0107.t
+    desc = meitou_travel.0107.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = personality_honorable
+    }
+    right_portrait = {
+        character = scope:meitou_juzumaru_guardian
+        animation = personality_rational
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_juzumaru_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_juzumaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    option = {
+        name = meitou_travel.0107.a
+        trigger = { meitou_juzumaru_available_trigger = yes }
+        if = {
+            limit = { meitou_juzumaru_available_trigger = yes }
+            if = {
+                limit = { learning >= 12 }
+                random_list = {
+                    80 = {
+                        meitou_create_juzumaru_effect = { OWNER = root }
+                        set_global_variable = meitou_juzumaru_found
+                        trigger_event = { id = meitou_travel.0207 }
+                    }
+                    20 = {
+                        add_stress = 15
+                        trigger_event = { id = meitou_travel.0307 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        meitou_create_juzumaru_effect = { OWNER = root }
+                        set_global_variable = meitou_juzumaru_found
+                        trigger_event = { id = meitou_travel.0207 }
+                    }
+                    55 = {
+                        add_stress = 15
+                        trigger_event = { id = meitou_travel.0307 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0107.b
+        trigger = { meitou_juzumaru_available_trigger = yes }
+        if = {
+            limit = { meitou_juzumaru_available_trigger = yes }
+            if = {
+                limit = { diplomacy >= 12 }
+                random_list = {
+                    80 = {
+                        meitou_create_juzumaru_effect = { OWNER = root }
+                        set_global_variable = meitou_juzumaru_found
+                        trigger_event = { id = meitou_travel.0207 }
+                    }
+                    20 = {
+                        add_stress = 15
+                        trigger_event = { id = meitou_travel.0307 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        meitou_create_juzumaru_effect = { OWNER = root }
+                        set_global_variable = meitou_juzumaru_found
+                        trigger_event = { id = meitou_travel.0207 }
+                    }
+                    55 = {
+                        add_stress = 15
+                        trigger_event = { id = meitou_travel.0307 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0107.c
+        trigger = { meitou_juzumaru_available_trigger = yes gold >= 70 }
+        if = {
+            limit = { meitou_juzumaru_available_trigger = yes gold >= 70 }
+            remove_short_term_gold = 70
+            meitou_create_juzumaru_effect = { OWNER = root }
+                        set_global_variable = meitou_juzumaru_found
+                        trigger_event = { id = meitou_travel.0207 }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.withdraw
+        trigger = { meitou_juzumaru_available_trigger = yes }
+        if = {
+            limit = { exists = scope:meitou_juzumaru_guardian }
+            scope:meitou_juzumaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.unavailable
+        trigger = { NOT = { meitou_juzumaru_available_trigger = yes } }
+        trigger_event = { id = meitou_travel.0999 }
+    }
+    option = {
+        name = meitou_debug.force_success
+        trigger = { debug_only = yes is_ai = no meitou_juzumaru_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_juzumaru_available_trigger = yes }
+            meitou_create_juzumaru_effect = { OWNER = root }
+            set_global_variable = meitou_juzumaru_found
+            trigger_event = { id = meitou_travel.0207 }
+        }
+    }
+    option = {
+        name = meitou_debug.force_failure
+        trigger = { debug_only = yes is_ai = no meitou_juzumaru_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_juzumaru_available_trigger = yes }
+            add_stress = 15
+            trigger_event = { id = meitou_travel.0307 }
+        }
+    }
+
+}
+
+meitou_travel.0207 = {
+    type = character_event
+    title = meitou_travel.0207.t
+    desc = meitou_travel.0207.desc
+    theme = travel
+    override_background = { reference = tgp_relaxing_room_asia }
+    left_portrait = {
+        character = root
+        animation = happiness
+    }
+    right_portrait = {
+        character = scope:meitou_juzumaru_guardian
+        animation = happiness
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_juzumaru_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_juzumaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_juzumaru_guardian }
+            scope:meitou_juzumaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.0207.a
+
+    }
+}
+
+meitou_travel.0307 = {
+    type = character_event
+    title = meitou_travel.0307.t
+    desc = meitou_travel.0307.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = worry
+    }
+    right_portrait = {
+        character = scope:meitou_juzumaru_guardian
+        animation = worry
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_juzumaru_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_juzumaru_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_juzumaru_guardian }
+            scope:meitou_juzumaru_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.failure_end
+
+    }
+}

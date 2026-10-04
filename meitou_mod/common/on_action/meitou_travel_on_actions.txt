@@ -9,6 +9,10 @@ meitou_record_early_campaign_on_action = {
             limit = { current_date < 1066.9.15 }
             set_global_variable = meitou_early_campaign
         }
+        if = {
+            limit = { current_date < 1178.10.1 }
+            set_global_variable = meitou_odenta_unseeded_campaign
+        }
     }
 }
 
@@ -27,6 +31,10 @@ meitou_japan_discovery_on_action = {
         if = {
             limit = { current_date < 1066.9.15 NOT = { has_global_variable = meitou_early_campaign } }
             set_global_variable = meitou_early_campaign
+        }
+        if = {
+            limit = { current_date < 1178.10.1 NOT = { has_global_variable = meitou_odenta_unseeded_campaign } }
+            set_global_variable = meitou_odenta_unseeded_campaign
         }
         if = {
             limit = {
@@ -76,6 +84,36 @@ meitou_japan_discovery_on_action = {
             random = {
                 chance = 0.25
                 trigger_event = { id = meitou_travel.0005 }
+            }
+        }
+        if = {
+            limit = {
+                meitou_odenta_available_trigger = yes
+                NOT = { has_character_flag = meitou_odenta_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0006 }
+            }
+        }
+        if = {
+            limit = {
+                meitou_juzumaru_available_trigger = yes
+                NOT = { has_character_flag = meitou_juzumaru_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0007 }
+            }
+        }
+        if = {
+            limit = {
+                meitou_onimaru_available_trigger = yes
+                NOT = { has_character_flag = meitou_onimaru_recent_encounter }
+            }
+            random = {
+                chance = 0.25
+                trigger_event = { id = meitou_travel.0008 }
             }
         }
     }

@@ -26,6 +26,18 @@ meitou_travel.0999 = {
             limit = { exists = scope:meitou_ookanehira_guardian }
             scope:meitou_ookanehira_guardian = { silent_disappearance_effect = yes }
         }
+        if = {
+            limit = { exists = scope:meitou_odenta_guardian }
+            scope:meitou_odenta_guardian = { silent_disappearance_effect = yes }
+        }
+        if = {
+            limit = { exists = scope:meitou_juzumaru_guardian }
+            scope:meitou_juzumaru_guardian = { silent_disappearance_effect = yes }
+        }
+        if = {
+            limit = { exists = scope:meitou_onimaru_guardian }
+            scope:meitou_onimaru_guardian = { silent_disappearance_effect = yes }
+        }
     }
     option = {
         name = meitou_travel.0999.a

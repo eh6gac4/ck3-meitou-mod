@@ -125,7 +125,7 @@ class DebugMenu(unittest.TestCase):
             self.assertEqual(result['found'], s['found'])
             self.assertNotIn(f'meitou_{sword}_recent_encounter', result['flags'])
             self.assertNotIn(f'meitou_debug_{sword}_intro', result['flags'])
-            self.assertEqual(len(result['flags']), 4)
+            self.assertEqual(len(result['flags']), len(SWORDS) - 1)
             for field in ('gold','stress','artifacts','learning','martial'):
                 self.assertEqual(result[field], s[field])
 

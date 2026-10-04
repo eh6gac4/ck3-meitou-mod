@@ -12,12 +12,16 @@ SWORDS = [('higekiri', 45, 25, ('prowess', 'diplomacy')),
           ('hizamaru', 40, 20, ('learning', 'diplomacy')),
           ('mikazuki', 80, 15, ('learning', 'diplomacy')),
           ('dojigiri', 60, 30, ('martial', 'intrigue')),
-          ('ookanehira', 60, 20, ('stewardship', 'martial'))]
+          ('ookanehira', 60, 20, ('stewardship', 'martial')),
+          ('odenta', 80, 20, ('learning', 'diplomacy')),
+          ('juzumaru', 70, 15, ('learning', 'diplomacy')),
+          ('onimaru', 70, 25, ('martial', 'intrigue'))]
 VANILLA_EFFECTS = {
     'create_artifact_higekiri_sword_effect': 'higekiri',
     'create_artifact_hizamaru_sword_effect': 'hizamaru',
     'create_artifact_mikazuki_munechika_sword_effect': 'mikazuki',
     'create_artifact_dojigiri_sword_effect': 'dojigiri',
+    'create_artifact_odenta_sword_effect': 'odenta',
 }
 
 
@@ -230,7 +234,7 @@ class EventChains(unittest.TestCase):
         cls.on_action = one(parse((MOD / 'common/on_action/meitou_travel_on_actions.txt').read_text()), 'meitou_japan_discovery_on_action')
 
     def test_graph_and_localization(self):
-        self.assertEqual(len(self.events), 32)
+        self.assertEqual(len(self.events), 2 + 6 * len(SWORDS))
         languages = []
         for language in ['japanese', 'english']:
             keys = []
@@ -253,7 +257,7 @@ class EventChains(unittest.TestCase):
                     self.assertIn(one(val, 'id'), self.events)
             self.assertTrue(any(k == 'option' for k, _, _ in block))
         # Every entry reaches its own challenge; success/failure are terminal.
-        for n in range(1, 6):
+        for n in range(1, len(SWORDS) + 1):
             intro = self.events[f'meitou_travel.{n:04}']
             opts = [v for k, _, v in intro if k == 'option']
             self.assertEqual(one(one(opts[0], 'trigger_event'), 'id'), f'meitou_travel.{100+n:04}')

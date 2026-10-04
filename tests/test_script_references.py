@@ -164,6 +164,33 @@ class ScriptReferences(unittest.TestCase):
                                if value == sword), effect_names)
             self.assertNotIn(f'meitou_create_{sword}_effect', effect_names)
 
+    def test_odenta_is_only_mod_generated_in_pre_1178_campaigns(self):
+        start_effect = one(one(self.on_actions, 'meitou_record_early_campaign_on_action'), 'effect')
+        early = state()
+        early['date'] = (1066, 9, 15)
+        effects(start_effect, early)
+        self.assertIn('meitou_odenta_unseeded_campaign', early['found'])
+        early['date'] = (1200, 1, 1)
+        late = state()
+        late['date'] = (1178, 10, 1)
+        effects(start_effect, late)
+        self.assertNotIn('meitou_odenta_unseeded_campaign', late['found'])
+        intro = self.events['meitou_travel.0006']
+        self.assertTrue(matches(one(intro, 'trigger'), early))
+        self.assertFalse(matches(one(intro, 'trigger'), late))
+        trial = self.events['meitou_travel.0106']
+        self.assertIn('create_artifact_odenta_sword_effect',
+                      {key for key, _, _ in walk(trial)})
+        options = [value for key, _, value in trial if key == 'option']
+        for option in options[:3] + options[5:7]:
+            bypassed = copy.deepcopy(late)
+            bypassed['gold'] = 100
+            bypassed['learning'] = 30
+            bypassed['diplomacy'] = 30
+            self.assertFalse(matches(one(option, 'trigger'), bypassed))
+            for result in effects(option, bypassed):
+                self.assertFalse(result['artifacts'])
+
     def test_vanilla_effect_definitions_exist_in_installed_game(self):
         game = Path(os.environ.get('CK3_GAME_DIR',
                        Path.home() / '.local/share/Steam/steamapps/common/Crusader Kings III/game'))
@@ -183,6 +210,8 @@ class ScriptReferences(unittest.TestCase):
                                            path.read_text(encoding='utf-8-sig'), re.M))
         for sword, _, _, _ in SWORDS:
             with self.subTest(sword=sword):
+                if sword == 'odenta':
+                    continue  # Vanilla provides this sword's complete creation effect.
                 effect = one(effects, f'meitou_create_{sword}_effect')
                 artifact = one(effect, 'create_artifact')
                 self.assertEqual(one(artifact, 'type'), 'sword')

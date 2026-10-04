@@ -27,6 +27,18 @@ meitou_debug.0001 = {
         trigger_event = { id = meitou_debug.0105 }
     }
     option = {
+        name = meitou_debug.choose_odenta
+        trigger_event = { id = meitou_debug.0106 }
+    }
+    option = {
+        name = meitou_debug.choose_juzumaru
+        trigger_event = { id = meitou_debug.0107 }
+    }
+    option = {
+        name = meitou_debug.choose_onimaru
+        trigger_event = { id = meitou_debug.0108 }
+    }
+    option = {
         name = meitou_debug.gold
         add_gold = 100
         trigger_event = { id = meitou_debug.0001 }
@@ -294,5 +306,161 @@ meitou_debug.0205 = {
     option = {
         name = meitou_debug.cancel
         trigger_event = { id = meitou_debug.0105 }
+    }
+}
+
+meitou_debug.0106 = {
+    type = character_event
+    title = meitou_debug.0106.t
+    desc = meitou_debug.0106.desc
+    theme = travel
+    trigger = { debug_only = yes is_ai = no }
+    option = {
+        name = meitou_debug.intro
+        trigger = { meitou_odenta_available_trigger = yes }
+        add_character_flag = { flag = meitou_debug_odenta_intro days = 1 }
+        trigger_event = { id = meitou_travel.0006 }
+    }
+    option = {
+        name = meitou_debug.trial
+        trigger_event = { id = meitou_travel.0106 }
+    }
+    option = {
+        name = meitou_debug.success_preview
+        trigger_event = { id = meitou_travel.0206 }
+    }
+    option = {
+        name = meitou_debug.failure_preview
+        trigger_event = { id = meitou_travel.0306 }
+    }
+    option = {
+        name = meitou_debug.reset
+        trigger_event = { id = meitou_debug.0206 }
+    }
+    option = {
+        name = meitou_debug.back
+        trigger_event = { id = meitou_debug.0001 }
+    }
+}
+
+meitou_debug.0206 = {
+    type = character_event
+    title = meitou_debug.0206.t
+    desc = meitou_debug.0206.desc
+    theme = travel
+    trigger = { debug_only = yes is_ai = no }
+    option = {
+        name = meitou_debug.reset_confirm
+        remove_character_flag = meitou_odenta_recent_encounter
+        remove_character_flag = meitou_debug_odenta_intro
+        trigger_event = { id = meitou_debug.0106 }
+    }
+    option = {
+        name = meitou_debug.cancel
+        trigger_event = { id = meitou_debug.0106 }
+    }
+}
+
+meitou_debug.0107 = {
+    type = character_event
+    title = meitou_debug.0107.t
+    desc = meitou_debug.0107.desc
+    theme = travel
+    trigger = { debug_only = yes is_ai = no }
+    option = {
+        name = meitou_debug.intro
+        trigger = { meitou_juzumaru_available_trigger = yes }
+        add_character_flag = { flag = meitou_debug_juzumaru_intro days = 1 }
+        trigger_event = { id = meitou_travel.0007 }
+    }
+    option = {
+        name = meitou_debug.trial
+        trigger_event = { id = meitou_travel.0107 }
+    }
+    option = {
+        name = meitou_debug.success_preview
+        trigger_event = { id = meitou_travel.0207 }
+    }
+    option = {
+        name = meitou_debug.failure_preview
+        trigger_event = { id = meitou_travel.0307 }
+    }
+    option = {
+        name = meitou_debug.reset
+        trigger_event = { id = meitou_debug.0207 }
+    }
+    option = {
+        name = meitou_debug.back
+        trigger_event = { id = meitou_debug.0001 }
+    }
+}
+
+meitou_debug.0207 = {
+    type = character_event
+    title = meitou_debug.0207.t
+    desc = meitou_debug.0207.desc
+    theme = travel
+    trigger = { debug_only = yes is_ai = no }
+    option = {
+        name = meitou_debug.reset_confirm
+        remove_character_flag = meitou_juzumaru_recent_encounter
+        remove_character_flag = meitou_debug_juzumaru_intro
+        trigger_event = { id = meitou_debug.0107 }
+    }
+    option = {
+        name = meitou_debug.cancel
+        trigger_event = { id = meitou_debug.0107 }
+    }
+}
+
+meitou_debug.0108 = {
+    type = character_event
+    title = meitou_debug.0108.t
+    desc = meitou_debug.0108.desc
+    theme = travel
+    trigger = { debug_only = yes is_ai = no }
+    option = {
+        name = meitou_debug.intro
+        trigger = { meitou_onimaru_available_trigger = yes }
+        add_character_flag = { flag = meitou_debug_onimaru_intro days = 1 }
+        trigger_event = { id = meitou_travel.0008 }
+    }
+    option = {
+        name = meitou_debug.trial
+        trigger_event = { id = meitou_travel.0108 }
+    }
+    option = {
+        name = meitou_debug.success_preview
+        trigger_event = { id = meitou_travel.0208 }
+    }
+    option = {
+        name = meitou_debug.failure_preview
+        trigger_event = { id = meitou_travel.0308 }
+    }
+    option = {
+        name = meitou_debug.reset
+        trigger_event = { id = meitou_debug.0208 }
+    }
+    option = {
+        name = meitou_debug.back
+        trigger_event = { id = meitou_debug.0001 }
+    }
+}
+
+meitou_debug.0208 = {
+    type = character_event
+    title = meitou_debug.0208.t
+    desc = meitou_debug.0208.desc
+    theme = travel
+    trigger = { debug_only = yes is_ai = no }
+    option = {
+        name = meitou_debug.reset_confirm
+        remove_character_flag = meitou_onimaru_recent_encounter
+        remove_character_flag = meitou_debug_onimaru_intro
+        trigger_event = { id = meitou_debug.0108 }
+    }
+    option = {
+        name = meitou_debug.cancel
+        trigger_event = { id = meitou_debug.0108 }
     }
 }

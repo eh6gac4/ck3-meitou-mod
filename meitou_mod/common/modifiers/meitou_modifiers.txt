@@ -4,3 +4,6 @@ meitou_hizamaru_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 mont
 meitou_mikazuki_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 knight_effectiveness_mult = 0.1 }
 meitou_dojigiri_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 monthly_dynasty_prestige_mult = 0.05 }
 meitou_ookanehira_modifier = { prowess = 3 knight_effectiveness_mult = 0.05 }
+
+meitou_juzumaru_modifier = { prowess = 2 monthly_piety = 0.2 learning = 1 }
+meitou_onimaru_modifier = { prowess = 3 dread_decay_mult = -0.15 }

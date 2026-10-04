@@ -1,0 +1,302 @@
+namespace = meitou_travel
+
+# History-inspired fiction; see README for sources and mechanics.
+
+meitou_travel.0006 = {
+    type = character_event
+    title = meitou_travel.0006.t
+    desc = meitou_travel.0006.desc
+    theme = travel
+    override_background = { reference = tgp_relaxing_room_asia }
+    left_portrait = {
+        character = root
+        animation = personality_rational
+    }
+    right_portrait = {
+        character = scope:meitou_odenta_guardian
+        animation = personality_honorable
+    }
+    trigger = {
+        is_ai = no
+        meitou_odenta_available_trigger = yes
+        OR = {
+            AND = {
+                is_available_travelling_adult = yes
+                location = { geographical_region = world_asia_japan }
+                NOT = { has_character_flag = meitou_odenta_recent_encounter }
+            }
+            AND = {
+                debug_only = yes
+                has_character_flag = meitou_debug_odenta_intro
+            }
+        }
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_odenta_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_odenta_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+        remove_character_flag = meitou_debug_odenta_intro
+        add_character_flag = { flag = meitou_odenta_recent_encounter days = 180 }
+    }
+    option = {
+        name = meitou_travel.0006.a
+        trigger_event = { id = meitou_travel.0106 }
+    }
+    option = {
+        name = meitou_travel.leave
+        if = {
+            limit = { exists = scope:meitou_odenta_guardian }
+            scope:meitou_odenta_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+}
+
+meitou_travel.0106 = {
+    type = character_event
+    title = meitou_travel.0106.t
+    desc = meitou_travel.0106.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = personality_honorable
+    }
+    right_portrait = {
+        character = scope:meitou_odenta_guardian
+        animation = personality_rational
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_odenta_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_odenta_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    option = {
+        name = meitou_travel.0106.a
+        trigger = { meitou_odenta_available_trigger = yes }
+        if = {
+            limit = { meitou_odenta_available_trigger = yes }
+            if = {
+                limit = { learning >= 12 }
+                random_list = {
+                    80 = {
+                        create_artifact_odenta_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_odenta_found
+                        trigger_event = { id = meitou_travel.0206 }
+                    }
+                    20 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0306 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        create_artifact_odenta_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_odenta_found
+                        trigger_event = { id = meitou_travel.0206 }
+                    }
+                    55 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0306 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0106.b
+        trigger = { meitou_odenta_available_trigger = yes }
+        if = {
+            limit = { meitou_odenta_available_trigger = yes }
+            if = {
+                limit = { diplomacy >= 12 }
+                random_list = {
+                    80 = {
+                        create_artifact_odenta_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_odenta_found
+                        trigger_event = { id = meitou_travel.0206 }
+                    }
+                    20 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0306 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    45 = {
+                        create_artifact_odenta_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_odenta_found
+                        trigger_event = { id = meitou_travel.0206 }
+                    }
+                    55 = {
+                        add_stress = 20
+                        trigger_event = { id = meitou_travel.0306 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.0106.c
+        trigger = { meitou_odenta_available_trigger = yes gold >= 80 }
+        if = {
+            limit = { meitou_odenta_available_trigger = yes gold >= 80 }
+            remove_short_term_gold = 80
+            create_artifact_odenta_sword_effect = { OWNER = root }
+                        set_global_variable = meitou_odenta_found
+                        trigger_event = { id = meitou_travel.0206 }
+        }
+        else = { trigger_event = { id = meitou_travel.0999 } }
+    }
+    option = {
+        name = meitou_travel.withdraw
+        trigger = { meitou_odenta_available_trigger = yes }
+        if = {
+            limit = { exists = scope:meitou_odenta_guardian }
+            scope:meitou_odenta_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.unavailable
+        trigger = { NOT = { meitou_odenta_available_trigger = yes } }
+        trigger_event = { id = meitou_travel.0999 }
+    }
+    option = {
+        name = meitou_debug.force_success
+        trigger = { debug_only = yes is_ai = no meitou_odenta_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_odenta_available_trigger = yes }
+            create_artifact_odenta_sword_effect = { OWNER = root }
+            set_global_variable = meitou_odenta_found
+            trigger_event = { id = meitou_travel.0206 }
+        }
+    }
+    option = {
+        name = meitou_debug.force_failure
+        trigger = { debug_only = yes is_ai = no meitou_odenta_available_trigger = yes }
+        if = {
+            limit = { debug_only = yes is_ai = no meitou_odenta_available_trigger = yes }
+            add_stress = 20
+            trigger_event = { id = meitou_travel.0306 }
+        }
+    }
+
+}
+
+meitou_travel.0206 = {
+    type = character_event
+    title = meitou_travel.0206.t
+    desc = meitou_travel.0206.desc
+    theme = travel
+    override_background = { reference = tgp_relaxing_room_asia }
+    left_portrait = {
+        character = root
+        animation = happiness
+    }
+    right_portrait = {
+        character = scope:meitou_odenta_guardian
+        animation = happiness
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_odenta_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_odenta_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_odenta_guardian }
+            scope:meitou_odenta_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.0206.a
+
+    }
+}
+
+meitou_travel.0306 = {
+    type = character_event
+    title = meitou_travel.0306.t
+    desc = meitou_travel.0306.desc
+    theme = travel
+    override_background = { reference = tgp_study_japan }
+    left_portrait = {
+        character = root
+        animation = worry
+    }
+    right_portrait = {
+        character = scope:meitou_odenta_guardian
+        animation = worry
+    }
+    immediate = {
+        if = {
+            limit = { NOT = { exists = scope:meitou_odenta_guardian } }
+            create_character = {
+                template = pool_repopulate_diplomacy
+                age = { 35 60 }
+                location = root.location
+                culture = root.location.culture
+                faith = root.location.faith
+                gender_female_chance = 0
+                save_scope_as = meitou_odenta_guardian
+                after_creation = {
+                    add_character_flag = created
+                    add_character_flag = { flag = silently_disappear_me years = 1 }
+                }
+            }
+        }
+    }
+    after = {
+        if = {
+            limit = { exists = scope:meitou_odenta_guardian }
+            scope:meitou_odenta_guardian = { silent_disappearance_effect = yes }
+        }
+    }
+    option = {
+        name = meitou_travel.failure_end
+
+    }
+}
