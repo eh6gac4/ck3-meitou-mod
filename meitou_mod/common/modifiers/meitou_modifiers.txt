@@ -7,3 +7,6 @@ meitou_ookanehira_modifier = { prowess = 3 knight_effectiveness_mult = 0.05 }
 
 meitou_juzumaru_modifier = { prowess = 2 monthly_piety = 0.2 learning = 1 }
 meitou_onimaru_modifier = { prowess = 3 dread_decay_mult = -0.15 }
+
+# One permanent upgrade per artifact, including vanilla-seeded historical swords.
+meitou_honed_blade_modifier = { prowess_no_portrait = 1 }

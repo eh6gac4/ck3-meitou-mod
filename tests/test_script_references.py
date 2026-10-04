@@ -221,6 +221,48 @@ class ScriptReferences(unittest.TestCase):
                 self.assertIn(one(artifact, 'name'), localization)
                 self.assertIn(one(artifact, 'description'), localization)
 
+    def test_upgrade_targets_only_unupgraded_named_swords(self):
+        triggers = parse((MOD / 'common/scripted_triggers/meitou_start_triggers.txt').read_text())
+        eligible = one(triggers, 'meitou_upgrade_eligible_artifact_trigger')
+        base_modifiers = {value for key, _, value in one(eligible, 'OR')
+                          if key == 'has_artifact_modifier'}
+        self.assertEqual(base_modifiers, {
+            'higekiri_sword_modifier', 'hizamaru_sword_modifier',
+            'mikazuki_munechika_sword_modifier', 'dojigiri_sword_modifier',
+            'odenta_sword_modifier',
+            *{f'meitou_{sword}_modifier' for sword, *_ in SWORDS if sword != 'odenta'},
+        })
+        self.assertEqual(one(one(eligible, 'NOT'), 'has_artifact_modifier'),
+                         'meitou_honed_blade_modifier')
+        modifiers = parse((MOD / 'common/modifiers/meitou_modifiers.txt').read_text())
+        self.assertEqual(one(one(modifiers, 'meitou_honed_blade_modifier'),
+                             'prowess_no_portrait'), '1')
+
+    def test_upgrade_event_uses_owned_artifact_and_one_payment(self):
+        yearly = one(self.on_actions, 'on_yearly_events')
+        self.assertIn('meitou_upgrade_yearly_on_action',
+                      [key for key, _, _ in one(yearly, 'on_actions')])
+        pulse = one(self.on_actions, 'meitou_upgrade_yearly_on_action')
+        self.assertEqual(one(one(one(pulse, 'effect'), 'random'), 'chance'), '10')
+        event = self.events['meitou_upgrade.0001']
+        self.assertEqual(one(one(one(event, 'immediate'), 'random_character_artifact'),
+                             'save_scope_as'), 'meitou_upgrade_target')
+        options = {one(value, 'name'): value for key, _, value in event if key == 'option'}
+        self.assertEqual(set(options), {'meitou_upgrade.0001.a',
+                                        'meitou_upgrade.0001.b',
+                                        'meitou_upgrade.0001.c'})
+        paid = options['meitou_upgrade.0001.a']
+        self.assertEqual(one(one(paid, 'if'), 'remove_short_term_gold'), '70')
+        for name in ('meitou_upgrade.0001.a', 'meitou_upgrade.0001.b'):
+            guard = one(one(options[name], 'if'), 'limit')
+            artifact = one(guard, 'scope:meitou_upgrade_target')
+            self.assertEqual(one(artifact, 'artifact_owner'), 'root')
+            self.assertEqual(one(artifact, 'meitou_upgrade_eligible_artifact_trigger'), 'yes')
+            self.assertTrue(any(key == 'add_artifact_modifier' and value == 'meitou_honed_blade_modifier'
+                                for key, _, value in walk(options[name])))
+        self.assertFalse(any(key in ('add_artifact_modifier', 'remove_short_term_gold')
+                             for key, _, _ in walk(options['meitou_upgrade.0001.c'])))
+
     def test_story_art_references_exist_in_installed_game(self):
         game = Path(os.environ.get('CK3_GAME_DIR',
                        Path.home() / '.local/share/Steam/steamapps/common/Crusader Kings III/game'))

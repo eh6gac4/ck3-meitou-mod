@@ -1,0 +1,103 @@
+namespace = meitou_upgrade
+
+meitou_upgrade.0001 = {
+    type = character_event
+    title = meitou_upgrade.0001.t
+    desc = meitou_upgrade.0001.desc
+    theme = stewardship
+    trigger = {
+        is_ai = no
+        is_adult = yes
+        any_character_artifact = { meitou_upgrade_eligible_artifact_trigger = yes }
+    }
+    immediate = {
+        random_character_artifact = {
+            limit = { meitou_upgrade_eligible_artifact_trigger = yes }
+            save_scope_as = meitou_upgrade_target
+        }
+    }
+    option = {
+        name = meitou_upgrade.0001.a
+        trigger = { gold >= 70 exists = scope:meitou_upgrade_target }
+        if = {
+            limit = {
+                gold >= 70
+                exists = scope:meitou_upgrade_target
+                scope:meitou_upgrade_target = {
+                    artifact_owner = root
+                    meitou_upgrade_eligible_artifact_trigger = yes
+                }
+            }
+            remove_short_term_gold = 70
+            scope:meitou_upgrade_target = { add_artifact_modifier = meitou_honed_blade_modifier }
+            trigger_event = { id = meitou_upgrade.0002 }
+        }
+        else = { trigger_event = { id = meitou_upgrade.0004 } }
+    }
+    option = {
+        name = meitou_upgrade.0001.b
+        trigger = { exists = scope:meitou_upgrade_target }
+        if = {
+            limit = {
+                exists = scope:meitou_upgrade_target
+                scope:meitou_upgrade_target = {
+                    artifact_owner = root
+                    meitou_upgrade_eligible_artifact_trigger = yes
+                }
+            }
+            if = {
+                limit = { prowess >= 12 }
+                random_list = {
+                    70 = {
+                        scope:meitou_upgrade_target = { add_artifact_modifier = meitou_honed_blade_modifier }
+                        trigger_event = { id = meitou_upgrade.0002 }
+                    }
+                    30 = {
+                        add_stress = 10
+                        trigger_event = { id = meitou_upgrade.0003 }
+                    }
+                }
+            }
+            else = {
+                random_list = {
+                    40 = {
+                        scope:meitou_upgrade_target = { add_artifact_modifier = meitou_honed_blade_modifier }
+                        trigger_event = { id = meitou_upgrade.0002 }
+                    }
+                    60 = {
+                        add_stress = 10
+                        trigger_event = { id = meitou_upgrade.0003 }
+                    }
+                }
+            }
+        }
+        else = { trigger_event = { id = meitou_upgrade.0004 } }
+    }
+    option = {
+        name = meitou_upgrade.0001.c
+    }
+}
+
+meitou_upgrade.0002 = {
+    type = character_event
+    title = meitou_upgrade.0002.t
+    desc = meitou_upgrade.0002.desc
+    theme = stewardship
+    option = { name = meitou_upgrade.end }
+}
+
+meitou_upgrade.0003 = {
+    type = character_event
+    title = meitou_upgrade.0003.t
+    desc = meitou_upgrade.0003.desc
+    theme = stewardship
+    option = { name = meitou_upgrade.end }
+}
+
+meitou_upgrade.0004 = {
+    type = character_event
+    title = meitou_upgrade.0004.t
+    desc = meitou_upgrade.0004.desc
+    theme = stewardship
+    option = { name = meitou_upgrade.end }
+}

@@ -44,3 +44,22 @@ meitou_juzumaru_available_trigger = {
 meitou_onimaru_available_trigger = {
     NOT = { has_global_variable = meitou_onimaru_found }
 }
+
+# Artifact scope. Match the base modifiers so vanilla-seeded swords are eligible too.
+meitou_upgrade_eligible_artifact_trigger = {
+    OR = {
+        has_artifact_modifier = higekiri_sword_modifier
+        has_artifact_modifier = hizamaru_sword_modifier
+        has_artifact_modifier = mikazuki_munechika_sword_modifier
+        has_artifact_modifier = dojigiri_sword_modifier
+        has_artifact_modifier = odenta_sword_modifier
+        has_artifact_modifier = meitou_higekiri_modifier
+        has_artifact_modifier = meitou_hizamaru_modifier
+        has_artifact_modifier = meitou_mikazuki_modifier
+        has_artifact_modifier = meitou_dojigiri_modifier
+        has_artifact_modifier = meitou_ookanehira_modifier
+        has_artifact_modifier = meitou_juzumaru_modifier
+        has_artifact_modifier = meitou_onimaru_modifier
+    }
+    NOT = { has_artifact_modifier = meitou_honed_blade_modifier }
+}

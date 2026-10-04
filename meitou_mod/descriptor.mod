@@ -1,3 +1,3 @@
 name="Meitou: Japanese Famous Swords"
-version="0.6"
+version="0.7"
 tags={ "Historical" "Artifacts" }

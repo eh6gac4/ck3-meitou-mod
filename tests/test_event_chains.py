@@ -234,7 +234,7 @@ class EventChains(unittest.TestCase):
         cls.on_action = one(parse((MOD / 'common/on_action/meitou_travel_on_actions.txt').read_text()), 'meitou_japan_discovery_on_action')
 
     def test_graph_and_localization(self):
-        self.assertEqual(len(self.events), 2 + 6 * len(SWORDS))
+        self.assertEqual(len(self.events), 2 + 6 * len(SWORDS) + 4)
         languages = []
         for language in ['japanese', 'english']:
             keys = []

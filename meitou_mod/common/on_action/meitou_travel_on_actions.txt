@@ -118,3 +118,22 @@ meitou_japan_discovery_on_action = {
         }
     }
 }
+
+# A rare owner event, independent of travel and available to early and late starts.
+on_yearly_events = {
+    on_actions = { meitou_upgrade_yearly_on_action }
+}
+
+meitou_upgrade_yearly_on_action = {
+    trigger = {
+        is_ai = no
+        is_adult = yes
+        any_character_artifact = { meitou_upgrade_eligible_artifact_trigger = yes }
+    }
+    effect = {
+        random = {
+            chance = 10
+            trigger_event = { id = meitou_upgrade.0001 }
+        }
+    }
+}
