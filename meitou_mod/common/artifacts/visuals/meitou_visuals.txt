@@ -1,4 +1,4 @@
-# All Under Heaven Japanese sword visuals.
+# Japanese sword visuals. Mod-original swords use dedicated inventory icons.
 meitou_higekiri_visual = {
     icon = "tgp_japanese_sword_01_a.dds"
     asset = tgp_japanese_sword_01_a_portrait_entity
@@ -19,7 +19,7 @@ meitou_dojigiri_visual = {
 }
 
 meitou_ookanehira_visual = {
-    icon = "tgp_japanese_sword_01_a.dds"
+    icon = "meitou_ookanehira.dds"
     asset = tgp_japanese_sword_01_a_portrait_entity
 }
 
@@ -29,11 +29,11 @@ meitou_odenta_visual = {
 }
 
 meitou_juzumaru_visual = {
-    icon = "tgp_japanese_sword_01_a.dds"
+    icon = "meitou_juzumaru.dds"
     asset = tgp_japanese_sword_01_a_portrait_entity
 }
 
 meitou_onimaru_visual = {
-    icon = "tgp_japanese_sword_01_a.dds"
+    icon = "meitou_onimaru.dds"
     asset = tgp_japanese_sword_01_a_portrait_entity
 }

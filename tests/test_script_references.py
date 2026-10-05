@@ -332,7 +332,8 @@ class ScriptReferences(unittest.TestCase):
         for key, _, visual in visuals:
             with self.subTest(visual=key):
                 icon = one(visual, 'icon').strip('"')
-                self.assertTrue((game / 'gfx/interface/icons/artifact' / icon).is_file())
+                self.assertTrue(any((root / 'gfx/interface/icons/artifact' / icon).is_file()
+                                    for root in (MOD, game)), icon)
                 self.assertIn(one(visual, 'asset'), asset_names)
 
 
