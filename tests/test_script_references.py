@@ -221,7 +221,7 @@ class ScriptReferences(unittest.TestCase):
                 self.assertIn(one(artifact, 'name'), localization)
                 self.assertIn(one(artifact, 'description'), localization)
 
-    def test_upgrade_targets_only_unupgraded_named_swords(self):
+    def test_upgrade_targets_named_swords_even_after_repeated_upgrades(self):
         triggers = parse((MOD / 'common/scripted_triggers/meitou_start_triggers.txt').read_text())
         eligible = one(triggers, 'meitou_upgrade_eligible_artifact_trigger')
         base_modifiers = {value for key, _, value in one(eligible, 'OR')
@@ -232,8 +232,14 @@ class ScriptReferences(unittest.TestCase):
             'odenta_sword_modifier',
             *{f'meitou_{sword}_modifier' for sword, *_ in SWORDS if sword != 'odenta'},
         })
-        self.assertEqual(one(one(eligible, 'NOT'), 'has_artifact_modifier'),
-                         'meitou_honed_blade_modifier')
+        for base in base_modifiers:
+            for upgrades in (0, 1, 2, 100):
+                with self.subTest(base=base, upgrades=upgrades):
+                    artifact = {'artifact_modifiers': [base] +
+                                ['meitou_honed_blade_modifier'] * upgrades}
+                    self.assertTrue(matches(eligible, artifact))
+        for modifiers in ([], ['meitou_honed_blade_modifier'], ['unrelated_modifier']):
+            self.assertFalse(matches(eligible, {'artifact_modifiers': modifiers}))
         modifiers = parse((MOD / 'common/modifiers/meitou_modifiers.txt').read_text())
         self.assertEqual(one(one(modifiers, 'meitou_honed_blade_modifier'),
                              'prowess_no_portrait'), '1')

@@ -61,7 +61,6 @@ meitou_upgrade_eligible_artifact_trigger = {
         has_artifact_modifier = meitou_juzumaru_modifier
         has_artifact_modifier = meitou_onimaru_modifier
     }
-    NOT = { has_artifact_modifier = meitou_honed_blade_modifier }
 }
 
 # Character scope. These are the CK3 baronies Kyo, Oku, Kuboya, and Mii.

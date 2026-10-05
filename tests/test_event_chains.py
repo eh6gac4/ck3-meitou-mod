@@ -98,6 +98,8 @@ def matches(block, state):
             result = matches(value, state)
         elif key == 'NOT':
             result = not matches(value, state)
+        elif key == 'has_artifact_modifier':
+            result = value in state['artifact_modifiers']
         elif key == 'has_global_variable':
             result = value in state['found']
         elif key == 'has_character_flag':
