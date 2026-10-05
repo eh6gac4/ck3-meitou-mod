@@ -130,7 +130,7 @@ meitou_swordsmith_visit_on_action = {
     }
     effect = {
         random = {
-            chance = 10
+            chance = 100
             trigger_event = { id = meitou_upgrade.0001 }
         }
     }
