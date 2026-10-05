@@ -1,0 +1,5 @@
+# 数珠丸の反り修正
+
+生成方法: built-in image_gen の画像編集。既存の数珠丸PNGを編集対象に指定。
+
+Use case: precise-object-edit. Edit the supplied Juzumaru Tsunetsugu inventory icon. Make exactly one substantive correction: the currently straight blade must have a clearly visible, smooth, natural Japanese tachi curvature (sori). Bend the entire visible steel blade into one graceful continuous arc from the habaki at the guard toward the cropped lower-left end; both the spine and cutting edge must follow this curve, and the hamon temper line must follow it too. The arc should be noticeable at 240x240 inventory scale, but restrained and physically plausible, not a sickle or exaggerated fantasy saber. Keep the upper-right hilt, ivory silk wrap, fittings, dark guard, prayer beads, camera angle, lighting, material finish and overall diagonal framing as close as possible to the original. Do not straighten or replace the grip, do not add objects, no text. Keep a genuinely transparent alpha background, no fake checkerboard or opaque background. Output one square PNG at the original aspect ratio. This is the same sword with corrected blade curvature, not a redesign.
