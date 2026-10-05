@@ -120,7 +120,7 @@ class ScriptReferences(unittest.TestCase):
                         candidate['flags'][f'meitou_{sword}_recent_encounter'] = 180
                     self.assertFalse(matches(limit, candidate))
                 draw = one(branch, 'random')
-                self.assertEqual(float(one(draw, 'chance')), 0.25)
+                self.assertEqual(float(one(draw, 'chance')), 100.0)
                 self.assertEqual(one(one(draw, 'trigger_event'), 'id'),
                                  f'meitou_travel.{n:04}')
 
