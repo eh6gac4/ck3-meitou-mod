@@ -140,7 +140,7 @@ if __name__ == '__main__':
         description = ('Private personal build for desktop / Steam Deck synchronization.\n'
                        'Eight Japanese famous swords, travel acquisition events, repeatable sword upgrades, '
                        'and original icons for Ookanehira, Juzumaru and Onimaru. Japanese and English.\n'
-                       f'Current build: v{version}. Acquisition chance: 0.25% per eligible sword per province entry. '
+                       f'Current build: v{version}. Acquisition chance: 0.5% per eligible sword per province entry. '
                        'Upgrade chance: 10% per eligible swordsmith destination arrival; '
                        'other eligibility and cooldown conditions still apply. Uses All Under Heaven assets.')
         for method, value in [('SetItemTitle', TITLE), ('SetItemDescription', description),
