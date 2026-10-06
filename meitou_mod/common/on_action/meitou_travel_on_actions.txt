@@ -42,7 +42,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_higekiri_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0001 }
             }
         }
@@ -52,7 +52,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_hizamaru_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0002 }
             }
         }
@@ -62,7 +62,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_mikazuki_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0003 }
             }
         }
@@ -72,7 +72,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_dojigiri_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0004 }
             }
         }
@@ -82,7 +82,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_ookanehira_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0005 }
             }
         }
@@ -92,7 +92,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_odenta_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0006 }
             }
         }
@@ -102,7 +102,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_juzumaru_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0007 }
             }
         }
@@ -112,7 +112,7 @@ meitou_japan_discovery_on_action = {
                 NOT = { has_character_flag = meitou_onimaru_recent_encounter }
             }
             random = {
-                chance = 100
+                chance = 0.25
                 trigger_event = { id = meitou_travel.0008 }
             }
         }
@@ -130,7 +130,7 @@ meitou_swordsmith_visit_on_action = {
     }
     effect = {
         random = {
-            chance = 100
+            chance = 10
             trigger_event = { id = meitou_upgrade.0001 }
         }
     }

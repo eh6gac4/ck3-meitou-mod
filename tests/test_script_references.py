@@ -120,7 +120,7 @@ class ScriptReferences(unittest.TestCase):
                         candidate['flags'][f'meitou_{sword}_recent_encounter'] = 180
                     self.assertFalse(matches(limit, candidate))
                 draw = one(branch, 'random')
-                self.assertEqual(float(one(draw, 'chance')), 100.0)
+                self.assertEqual(float(one(draw, 'chance')), 0.25)
                 self.assertEqual(one(one(draw, 'trigger_event'), 'id'),
                                  f'meitou_travel.{n:04}')
 
@@ -250,7 +250,7 @@ class ScriptReferences(unittest.TestCase):
         self.assertIn('meitou_swordsmith_visit_on_action',
                       [key for key, _, _ in one(movement, 'on_actions')])
         pulse = one(self.on_actions, 'meitou_swordsmith_visit_on_action')
-        self.assertEqual(one(one(one(pulse, 'effect'), 'random'), 'chance'), '100')
+        self.assertEqual(one(one(one(pulse, 'effect'), 'random'), 'chance'), '10')
         self.assertEqual(one(one(pulse, 'trigger'), 'meitou_swordsmith_destination_trigger'), 'yes')
         self.assertEqual(one(one(one(pulse, 'trigger'), 'NOT'), 'has_character_flag'),
                          'meitou_upgrade_recent_encounter')
