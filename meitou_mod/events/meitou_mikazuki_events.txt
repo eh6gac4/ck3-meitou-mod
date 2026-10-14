@@ -106,6 +106,7 @@ meitou_travel.0103 = {
                 random_list = {
                     80 = {
                         create_artifact_mikazuki_munechika_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_mikazuki_found
                         trigger_event = { id = meitou_travel.0203 }
                     }
@@ -119,6 +120,7 @@ meitou_travel.0103 = {
                 random_list = {
                     45 = {
                         create_artifact_mikazuki_munechika_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_mikazuki_found
                         trigger_event = { id = meitou_travel.0203 }
                     }
@@ -141,6 +143,7 @@ meitou_travel.0103 = {
                 random_list = {
                     80 = {
                         create_artifact_mikazuki_munechika_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_mikazuki_found
                         trigger_event = { id = meitou_travel.0203 }
                     }
@@ -154,6 +157,7 @@ meitou_travel.0103 = {
                 random_list = {
                     45 = {
                         create_artifact_mikazuki_munechika_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_mikazuki_found
                         trigger_event = { id = meitou_travel.0203 }
                     }
@@ -173,6 +177,7 @@ meitou_travel.0103 = {
             limit = { meitou_mikazuki_available_trigger = yes gold >= 80 }
             remove_short_term_gold = 80
             create_artifact_mikazuki_munechika_sword_effect = { OWNER = root }
+            scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_mikazuki_found
                         trigger_event = { id = meitou_travel.0203 }
         }
@@ -197,6 +202,7 @@ meitou_travel.0103 = {
         if = {
             limit = { debug_only = yes is_ai = no meitou_mikazuki_available_trigger = yes }
             create_artifact_mikazuki_munechika_sword_effect = { OWNER = root }
+            scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
             set_global_variable = meitou_mikazuki_found
             trigger_event = { id = meitou_travel.0203 }
         }

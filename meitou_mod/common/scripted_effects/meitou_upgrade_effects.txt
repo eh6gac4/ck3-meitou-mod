@@ -1,0 +1,151 @@
+# Artifact-scope effects for balanced base stats, bounded progression, and save migration.
+meitou_prepare_sword_effect = {
+    if = {
+        limit = { has_artifact_modifier = higekiri_sword_modifier NOT = { has_artifact_modifier = meitou_higekiri_balance_modifier } }
+        add_artifact_modifier = meitou_higekiri_balance_modifier
+    }
+    if = {
+        limit = { has_artifact_modifier = hizamaru_sword_modifier NOT = { has_artifact_modifier = meitou_hizamaru_balance_modifier } }
+        add_artifact_modifier = meitou_hizamaru_balance_modifier
+    }
+    if = {
+        limit = { has_artifact_modifier = mikazuki_munechika_sword_modifier NOT = { has_artifact_modifier = meitou_mikazuki_balance_modifier } }
+        add_artifact_modifier = meitou_mikazuki_balance_modifier
+    }
+    if = {
+        limit = { has_artifact_modifier = dojigiri_sword_modifier NOT = { has_artifact_modifier = meitou_dojigiri_balance_modifier } }
+        add_artifact_modifier = meitou_dojigiri_balance_modifier
+    }
+    if = {
+        limit = { has_artifact_modifier = odenta_sword_modifier NOT = { has_artifact_modifier = meitou_odenta_balance_modifier } }
+        add_artifact_modifier = meitou_odenta_balance_modifier
+    }
+}
+
+meitou_apply_polish_effect = {
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_higekiri_modifier has_artifact_modifier = higekiri_sword_modifier } NOT = { has_artifact_modifier = meitou_higekiri_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_higekiri_polish_2_modifier }
+            remove_artifact_modifier = meitou_higekiri_polish_2_modifier
+            add_artifact_modifier = meitou_higekiri_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_higekiri_polish_1_modifier }
+            remove_artifact_modifier = meitou_higekiri_polish_1_modifier
+            add_artifact_modifier = meitou_higekiri_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_higekiri_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_hizamaru_modifier has_artifact_modifier = hizamaru_sword_modifier } NOT = { has_artifact_modifier = meitou_hizamaru_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_hizamaru_polish_2_modifier }
+            remove_artifact_modifier = meitou_hizamaru_polish_2_modifier
+            add_artifact_modifier = meitou_hizamaru_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_hizamaru_polish_1_modifier }
+            remove_artifact_modifier = meitou_hizamaru_polish_1_modifier
+            add_artifact_modifier = meitou_hizamaru_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_hizamaru_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_mikazuki_modifier has_artifact_modifier = mikazuki_munechika_sword_modifier } NOT = { has_artifact_modifier = meitou_mikazuki_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_mikazuki_polish_2_modifier }
+            remove_artifact_modifier = meitou_mikazuki_polish_2_modifier
+            add_artifact_modifier = meitou_mikazuki_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_mikazuki_polish_1_modifier }
+            remove_artifact_modifier = meitou_mikazuki_polish_1_modifier
+            add_artifact_modifier = meitou_mikazuki_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_mikazuki_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_dojigiri_modifier has_artifact_modifier = dojigiri_sword_modifier } NOT = { has_artifact_modifier = meitou_dojigiri_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_dojigiri_polish_2_modifier }
+            remove_artifact_modifier = meitou_dojigiri_polish_2_modifier
+            add_artifact_modifier = meitou_dojigiri_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_dojigiri_polish_1_modifier }
+            remove_artifact_modifier = meitou_dojigiri_polish_1_modifier
+            add_artifact_modifier = meitou_dojigiri_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_dojigiri_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_ookanehira_modifier } NOT = { has_artifact_modifier = meitou_ookanehira_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_ookanehira_polish_2_modifier }
+            remove_artifact_modifier = meitou_ookanehira_polish_2_modifier
+            add_artifact_modifier = meitou_ookanehira_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_ookanehira_polish_1_modifier }
+            remove_artifact_modifier = meitou_ookanehira_polish_1_modifier
+            add_artifact_modifier = meitou_ookanehira_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_ookanehira_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = odenta_sword_modifier } NOT = { has_artifact_modifier = meitou_odenta_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_odenta_polish_2_modifier }
+            remove_artifact_modifier = meitou_odenta_polish_2_modifier
+            add_artifact_modifier = meitou_odenta_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_odenta_polish_1_modifier }
+            remove_artifact_modifier = meitou_odenta_polish_1_modifier
+            add_artifact_modifier = meitou_odenta_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_odenta_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_juzumaru_modifier } NOT = { has_artifact_modifier = meitou_juzumaru_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_juzumaru_polish_2_modifier }
+            remove_artifact_modifier = meitou_juzumaru_polish_2_modifier
+            add_artifact_modifier = meitou_juzumaru_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_juzumaru_polish_1_modifier }
+            remove_artifact_modifier = meitou_juzumaru_polish_1_modifier
+            add_artifact_modifier = meitou_juzumaru_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_juzumaru_polish_1_modifier }
+    }
+    if = {
+        limit = { OR = { has_artifact_modifier = meitou_onimaru_modifier } NOT = { has_artifact_modifier = meitou_onimaru_polish_3_modifier } }
+        if = {
+            limit = { has_artifact_modifier = meitou_onimaru_polish_2_modifier }
+            remove_artifact_modifier = meitou_onimaru_polish_2_modifier
+            add_artifact_modifier = meitou_onimaru_polish_3_modifier
+        }
+        else_if = {
+            limit = { has_artifact_modifier = meitou_onimaru_polish_1_modifier }
+            remove_artifact_modifier = meitou_onimaru_polish_1_modifier
+            add_artifact_modifier = meitou_onimaru_polish_2_modifier
+        }
+        else = { add_artifact_modifier = meitou_onimaru_polish_1_modifier }
+    }
+}
+
+# Map each old +1 polish to one stage, at most III. Remove every old bonus.
+meitou_migrate_polish_effect = {
+    meitou_prepare_sword_effect = yes
+    while = {
+        limit = { has_artifact_modifier = meitou_honed_blade_modifier }
+        remove_artifact_modifier = meitou_honed_blade_modifier
+        if = {
+            limit = { meitou_upgrade_eligible_artifact_trigger = yes }
+            meitou_apply_polish_effect = yes
+        }
+    }
+}
