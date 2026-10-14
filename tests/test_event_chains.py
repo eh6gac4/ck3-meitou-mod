@@ -81,6 +81,9 @@ SCRIPTED_TRIGGERS = {
 }
 
 
+SCRIPTED_EFFECTS = {key: value for key, _, value in parse(
+    (MOD / 'common/scripted_effects/meitou_upgrade_effects.txt').read_text())}
+
 def walk(block):
     for k, op, v in block:
         yield k, op, v
@@ -98,6 +101,10 @@ def matches(block, state):
             result = matches(value, state)
         elif key == 'NOT':
             result = not matches(value, state)
+        elif key.startswith('scope:'):
+            result = matches(value, state['scopes'][key[6:]])
+        elif key == 'artifact_owner':
+            result = state['artifact_owner'] == value
         elif key == 'has_artifact_modifier':
             result = value in state['artifact_modifiers']
         elif key == 'has_global_variable':
@@ -152,6 +159,33 @@ def effects(block, state):
                     next_states.append(out)
             states = next_states + no
             previous_if = True
+        elif key == 'else_if':
+            if previous_if is None:
+                raise AssertionError('else_if without if')
+            next_states = []
+            for s in states:
+                if s['_last_if']:
+                    next_states.append(s)
+                elif matches(one(value, 'limit'), s):
+                    for out in effects(value, s):
+                        out['_last_if'] = True
+                        next_states.append(out)
+                else:
+                    next_states.append(s)
+            states = next_states
+        elif key == 'while':
+            for s in states:
+                iterations = 0
+                while matches(one(value, 'limit'), s):
+                    effects(value, s)
+                    iterations += 1
+                    if iterations > 1000:
+                        raise AssertionError('Nonterminating migration')
+        elif key in SCRIPTED_EFFECTS:
+            next_states = []
+            for s in states:
+                next_states.extend(effects(SCRIPTED_EFFECTS[key], s))
+            states = next_states
         elif key == 'else':
             if previous_if is None:
                 raise AssertionError('else without if')
@@ -197,19 +231,33 @@ def effects(block, state):
                     s['scopes'][scope] = one(value, 'template')
                     s['created_characters'].append(scope)
                 elif key.startswith('scope:'):
-                    if one(value, 'silent_disappearance_effect') != 'yes':
-                        raise AssertionError(f'Unknown scoped effect: {key}')
-                    s['scopes'].pop(key[6:])
+                    if any(k == 'silent_disappearance_effect' for k, _, _ in value):
+                        if one(value, 'silent_disappearance_effect') != 'yes':
+                            raise AssertionError(f'Unknown scoped effect: {key}')
+                        s['scopes'].pop(key[6:])
+                    else:
+                        effects(value, s['scopes'][key[6:]])
+                elif key == 'add_artifact_modifier':
+                    s['artifact_modifiers'].append(value)
+                elif key == 'remove_artifact_modifier':
+                    if value in s['artifact_modifiers']:
+                        s['artifact_modifiers'].remove(value)
                 elif key in VANILLA_EFFECTS:
                     if one(value, 'OWNER') != 'root':
                         raise AssertionError('Wrong recipient')
                     s['artifacts'].append(VANILLA_EFFECTS[key])
+                    sword = VANILLA_EFFECTS[key]
+                    base = 'mikazuki_munechika' if sword == 'mikazuki' else sword
+                    s['scopes']['newly_created_artifact'] = {
+                        'artifact_modifiers': [base + '_sword_modifier'], 'artifact_owner': 'root'}
                 elif re.fullmatch(r'meitou_create_\w+_effect', key):
                     if one(value, 'OWNER') != 'root':
                         raise AssertionError('Wrong recipient')
                     s['artifacts'].append(key[len('meitou_create_'):-len('_effect')])
                 else:
                     raise AssertionError(f'Unknown effect: {key}')
+    for result in states:
+        result.pop('_last_if', None)
     return states
 
 

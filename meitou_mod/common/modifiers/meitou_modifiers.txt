@@ -1,12 +1,43 @@
-# Legacy modifier keys stay available to existing saves. Match vanilla values.
-meitou_higekiri_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 dread_decay_mult = -0.15 }
-meitou_hizamaru_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 monthly_county_control_growth_factor = 0.15 }
-meitou_mikazuki_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 knight_effectiveness_mult = 0.1 }
-meitou_dojigiri_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 monthly_dynasty_prestige_mult = 0.05 }
-meitou_ookanehira_modifier = { prowess = 3 knight_effectiveness_mult = 0.05 }
+# Balanced totals are documented in README. Vanilla bonuses preserve original artifacts and history.
+meitou_higekiri_modifier = { prowess_no_portrait = 7 monthly_prestige = 0.5 dread_baseline_add = 10 dread_decay_mult = -0.15 }
+meitou_hizamaru_modifier = { prowess_no_portrait = 6 monthly_prestige = 0.5 martial = 1 monthly_county_control_growth_factor = 0.15 }
+meitou_mikazuki_modifier = { prowess_no_portrait = 6 monthly_prestige = 0.5 diplomacy = 1 vassal_opinion = 5 }
+meitou_dojigiri_modifier = { prowess_no_portrait = 8 monthly_prestige = 0.5 knight_effectiveness_mult = 0.1 }
+meitou_ookanehira_modifier = { prowess_no_portrait = 10 monthly_prestige = 0.5 knight_effectiveness_mult = 0.05 }
+meitou_juzumaru_modifier = { prowess_no_portrait = 6 monthly_prestige = 0.5 learning = 2 monthly_piety = 0.3 }
+meitou_onimaru_modifier = { prowess_no_portrait = 8 monthly_prestige = 0.5 intrigue = 1 dread_baseline_add = 10 }
 
-meitou_juzumaru_modifier = { prowess = 2 monthly_piety = 0.2 learning = 1 }
-meitou_onimaru_modifier = { prowess = 3 dread_decay_mult = -0.15 }
-
-# Each successful upgrade adds another permanent copy, as in vanilla antiquarian improvements.
+# Preserve the old key so existing saves can migrate their completed polishes.
 meitou_honed_blade_modifier = { prowess_no_portrait = 1 }
+
+meitou_higekiri_balance_modifier = { prowess_no_portrait = 5 monthly_prestige = 0.3 dread_baseline_add = 10 }
+meitou_hizamaru_balance_modifier = { prowess_no_portrait = 4 monthly_prestige = 0.3 martial = 1 }
+meitou_mikazuki_balance_modifier = { prowess_no_portrait = 4 monthly_prestige = 0.3 diplomacy = 1 vassal_opinion = 5 knight_effectiveness_mult = -0.1 }
+meitou_dojigiri_balance_modifier = { prowess_no_portrait = 6 monthly_prestige = 0.3 knight_effectiveness_mult = 0.1 monthly_dynasty_prestige_mult = -0.05 }
+meitou_odenta_balance_modifier = { prowess_no_portrait = 5 monthly_prestige = 0.5 fellow_vassal_opinion = -10 }
+
+# Each polish replaces the previous stage; bonuses are relative to the unpolished blade.
+meitou_higekiri_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 dread_baseline_add = 2 dread_decay_mult = -0.05 }
+meitou_higekiri_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 dread_baseline_add = 5 dread_decay_mult = -0.1 }
+meitou_higekiri_polish_3_modifier = { prowess_no_portrait = 3 monthly_prestige = 0.3 dread_baseline_add = 10 dread_decay_mult = -0.15 }
+meitou_hizamaru_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 monthly_county_control_growth_factor = 0.05 }
+meitou_hizamaru_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 martial = 1 monthly_county_control_growth_factor = 0.1 }
+meitou_hizamaru_polish_3_modifier = { prowess_no_portrait = 3 monthly_prestige = 0.3 martial = 2 monthly_county_control_growth_factor = 0.15 }
+meitou_mikazuki_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 diplomacy = 1 }
+meitou_mikazuki_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 diplomacy = 1 vassal_opinion = 5 }
+meitou_mikazuki_polish_3_modifier = { prowess_no_portrait = 3 monthly_prestige = 0.3 diplomacy = 2 vassal_opinion = 10 }
+meitou_dojigiri_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 knight_effectiveness_mult = 0.05 }
+meitou_dojigiri_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 knight_effectiveness_mult = 0.08 }
+meitou_dojigiri_polish_3_modifier = { prowess_no_portrait = 4 monthly_prestige = 0.3 knight_effectiveness_mult = 0.1 }
+meitou_ookanehira_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 knight_effectiveness_mult = 0.03 }
+meitou_ookanehira_polish_2_modifier = { prowess_no_portrait = 3 monthly_prestige = 0.2 knight_effectiveness_mult = 0.05 }
+meitou_ookanehira_polish_3_modifier = { prowess_no_portrait = 5 monthly_prestige = 0.3 knight_effectiveness_mult = 0.1 }
+meitou_odenta_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.2 vassal_opinion = 5 }
+meitou_odenta_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.4 vassal_opinion = 5 }
+meitou_odenta_polish_3_modifier = { prowess_no_portrait = 3 monthly_prestige = 0.6 vassal_opinion = 10 }
+meitou_juzumaru_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 monthly_piety = 0.1 }
+meitou_juzumaru_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 learning = 1 monthly_piety = 0.3 }
+meitou_juzumaru_polish_3_modifier = { prowess_no_portrait = 3 monthly_prestige = 0.3 learning = 1 monthly_piety = 0.5 }
+meitou_onimaru_polish_1_modifier = { prowess_no_portrait = 1 monthly_prestige = 0.1 intrigue = 1 dread_baseline_add = 5 }
+meitou_onimaru_polish_2_modifier = { prowess_no_portrait = 2 monthly_prestige = 0.2 intrigue = 1 dread_baseline_add = 10 }
+meitou_onimaru_polish_3_modifier = { prowess_no_portrait = 4 monthly_prestige = 0.3 intrigue = 2 dread_baseline_add = 15 }

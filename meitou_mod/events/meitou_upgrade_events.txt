@@ -37,22 +37,56 @@ meitou_upgrade.0001 = {
         random_character_artifact = {
             limit = { meitou_upgrade_eligible_artifact_trigger = yes }
             save_scope_as = meitou_upgrade_target
+            meitou_migrate_polish_effect = yes
         }
     }
     option = {
-        name = meitou_upgrade.0001.a
-        trigger = { gold >= 70 exists = scope:meitou_upgrade_target }
+        name = meitou_upgrade.0001.a1
+        trigger = { meitou_can_pay_polish_1_trigger = yes }
         if = {
             limit = {
-                gold >= 70
-                exists = scope:meitou_upgrade_target
+                meitou_can_pay_polish_1_trigger = yes
                 scope:meitou_upgrade_target = {
                     artifact_owner = root
                     meitou_upgrade_eligible_artifact_trigger = yes
                 }
             }
             remove_short_term_gold = 70
-            scope:meitou_upgrade_target = { add_artifact_modifier = meitou_honed_blade_modifier }
+            scope:meitou_upgrade_target = { meitou_apply_polish_effect = yes }
+            trigger_event = { id = meitou_upgrade.0002 }
+        }
+        else = { trigger_event = { id = meitou_upgrade.0004 } }
+    }
+    option = {
+        name = meitou_upgrade.0001.a2
+        trigger = { meitou_can_pay_polish_2_trigger = yes }
+        if = {
+            limit = {
+                meitou_can_pay_polish_2_trigger = yes
+                scope:meitou_upgrade_target = {
+                    artifact_owner = root
+                    meitou_upgrade_eligible_artifact_trigger = yes
+                }
+            }
+            remove_short_term_gold = 120
+            scope:meitou_upgrade_target = { meitou_apply_polish_effect = yes }
+            trigger_event = { id = meitou_upgrade.0002 }
+        }
+        else = { trigger_event = { id = meitou_upgrade.0004 } }
+    }
+    option = {
+        name = meitou_upgrade.0001.a3
+        trigger = { meitou_can_pay_polish_3_trigger = yes }
+        if = {
+            limit = {
+                meitou_can_pay_polish_3_trigger = yes
+                scope:meitou_upgrade_target = {
+                    artifact_owner = root
+                    meitou_upgrade_eligible_artifact_trigger = yes
+                }
+            }
+            remove_short_term_gold = 200
+            scope:meitou_upgrade_target = { meitou_apply_polish_effect = yes }
             trigger_event = { id = meitou_upgrade.0002 }
         }
         else = { trigger_event = { id = meitou_upgrade.0004 } }
@@ -72,7 +106,7 @@ meitou_upgrade.0001 = {
                 limit = { prowess >= 12 }
                 random_list = {
                     70 = {
-                        scope:meitou_upgrade_target = { add_artifact_modifier = meitou_honed_blade_modifier }
+                        scope:meitou_upgrade_target = { meitou_apply_polish_effect = yes }
                         trigger_event = { id = meitou_upgrade.0002 }
                     }
                     30 = {
@@ -84,7 +118,7 @@ meitou_upgrade.0001 = {
             else = {
                 random_list = {
                     40 = {
-                        scope:meitou_upgrade_target = { add_artifact_modifier = meitou_honed_blade_modifier }
+                        scope:meitou_upgrade_target = { meitou_apply_polish_effect = yes }
                         trigger_event = { id = meitou_upgrade.0002 }
                     }
                     60 = {

@@ -46,7 +46,7 @@ meitou_onimaru_available_trigger = {
 }
 
 # Artifact scope. Match the base modifiers so vanilla-seeded swords are eligible too.
-meitou_upgrade_eligible_artifact_trigger = {
+meitou_named_sword_artifact_trigger = {
     OR = {
         has_artifact_modifier = higekiri_sword_modifier
         has_artifact_modifier = hizamaru_sword_modifier
@@ -71,4 +71,70 @@ meitou_swordsmith_destination_trigger = {
         location = province:10583 # b_kuboya, Bitchu
         location = province:10533 # b_mii, Chikugo
     }
+}
+
+# Completed blades no longer participate in workshop selection.
+meitou_upgrade_eligible_artifact_trigger = {
+    meitou_named_sword_artifact_trigger = yes
+    NOT = { meitou_polish_3_trigger = yes }
+}
+
+meitou_polish_1_trigger = {
+    OR = {
+        has_artifact_modifier = meitou_higekiri_polish_1_modifier
+        has_artifact_modifier = meitou_hizamaru_polish_1_modifier
+        has_artifact_modifier = meitou_mikazuki_polish_1_modifier
+        has_artifact_modifier = meitou_dojigiri_polish_1_modifier
+        has_artifact_modifier = meitou_ookanehira_polish_1_modifier
+        has_artifact_modifier = meitou_odenta_polish_1_modifier
+        has_artifact_modifier = meitou_juzumaru_polish_1_modifier
+        has_artifact_modifier = meitou_onimaru_polish_1_modifier
+    }
+}
+
+meitou_polish_2_trigger = {
+    OR = {
+        has_artifact_modifier = meitou_higekiri_polish_2_modifier
+        has_artifact_modifier = meitou_hizamaru_polish_2_modifier
+        has_artifact_modifier = meitou_mikazuki_polish_2_modifier
+        has_artifact_modifier = meitou_dojigiri_polish_2_modifier
+        has_artifact_modifier = meitou_ookanehira_polish_2_modifier
+        has_artifact_modifier = meitou_odenta_polish_2_modifier
+        has_artifact_modifier = meitou_juzumaru_polish_2_modifier
+        has_artifact_modifier = meitou_onimaru_polish_2_modifier
+    }
+}
+
+meitou_polish_3_trigger = {
+    OR = {
+        has_artifact_modifier = meitou_higekiri_polish_3_modifier
+        has_artifact_modifier = meitou_hizamaru_polish_3_modifier
+        has_artifact_modifier = meitou_mikazuki_polish_3_modifier
+        has_artifact_modifier = meitou_dojigiri_polish_3_modifier
+        has_artifact_modifier = meitou_ookanehira_polish_3_modifier
+        has_artifact_modifier = meitou_odenta_polish_3_modifier
+        has_artifact_modifier = meitou_juzumaru_polish_3_modifier
+        has_artifact_modifier = meitou_onimaru_polish_3_modifier
+    }
+}
+
+# Character scope; the selected artifact determines the payment.
+meitou_can_pay_polish_1_trigger = {
+    gold >= 70
+    exists = scope:meitou_upgrade_target
+    scope:meitou_upgrade_target = { NOT = { meitou_polish_1_trigger = yes } NOT = { meitou_polish_2_trigger = yes } NOT = { meitou_polish_3_trigger = yes } }
+}
+
+# Character scope; the selected artifact determines the payment.
+meitou_can_pay_polish_2_trigger = {
+    gold >= 120
+    exists = scope:meitou_upgrade_target
+    scope:meitou_upgrade_target = { meitou_polish_1_trigger = yes }
+}
+
+# Character scope; the selected artifact determines the payment.
+meitou_can_pay_polish_3_trigger = {
+    gold >= 200
+    exists = scope:meitou_upgrade_target
+    scope:meitou_upgrade_target = { meitou_polish_2_trigger = yes }
 }

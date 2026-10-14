@@ -106,6 +106,7 @@ meitou_travel.0102 = {
                 random_list = {
                     80 = {
                         create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_hizamaru_found
                         trigger_event = { id = meitou_travel.0202 }
                     }
@@ -119,6 +120,7 @@ meitou_travel.0102 = {
                 random_list = {
                     45 = {
                         create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_hizamaru_found
                         trigger_event = { id = meitou_travel.0202 }
                     }
@@ -141,6 +143,7 @@ meitou_travel.0102 = {
                 random_list = {
                     80 = {
                         create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_hizamaru_found
                         trigger_event = { id = meitou_travel.0202 }
                     }
@@ -154,6 +157,7 @@ meitou_travel.0102 = {
                 random_list = {
                     45 = {
                         create_artifact_hizamaru_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_hizamaru_found
                         trigger_event = { id = meitou_travel.0202 }
                     }
@@ -173,6 +177,7 @@ meitou_travel.0102 = {
             limit = { meitou_hizamaru_available_trigger = yes gold >= 40 }
             remove_short_term_gold = 40
             create_artifact_hizamaru_sword_effect = { OWNER = root }
+            scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_hizamaru_found
                         trigger_event = { id = meitou_travel.0202 }
         }
@@ -197,6 +202,7 @@ meitou_travel.0102 = {
         if = {
             limit = { debug_only = yes is_ai = no meitou_hizamaru_available_trigger = yes }
             create_artifact_hizamaru_sword_effect = { OWNER = root }
+            scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
             set_global_variable = meitou_hizamaru_found
             trigger_event = { id = meitou_travel.0202 }
         }

@@ -224,7 +224,8 @@ class ScriptReferences(unittest.TestCase):
     def test_upgrade_targets_named_swords_even_after_repeated_upgrades(self):
         triggers = parse((MOD / 'common/scripted_triggers/meitou_start_triggers.txt').read_text())
         eligible = one(triggers, 'meitou_upgrade_eligible_artifact_trigger')
-        base_modifiers = {value for key, _, value in one(eligible, 'OR')
+        named = one(triggers, 'meitou_named_sword_artifact_trigger')
+        base_modifiers = {value for key, _, value in one(named, 'OR')
                           if key == 'has_artifact_modifier'}
         self.assertEqual(base_modifiers, {
             'higekiri_sword_modifier', 'hizamaru_sword_modifier',
@@ -269,17 +270,22 @@ class ScriptReferences(unittest.TestCase):
         self.assertEqual(one(one(one(event, 'immediate'), 'random_character_artifact'),
                              'save_scope_as'), 'meitou_upgrade_target')
         options = {one(value, 'name'): value for key, _, value in event if key == 'option'}
-        self.assertEqual(set(options), {'meitou_upgrade.0001.a',
+        self.assertEqual(set(options), {
                                         'meitou_upgrade.0001.b',
-                                        'meitou_upgrade.0001.c'})
-        paid = options['meitou_upgrade.0001.a']
-        self.assertEqual(one(one(paid, 'if'), 'remove_short_term_gold'), '70')
-        for name in ('meitou_upgrade.0001.a', 'meitou_upgrade.0001.b'):
+                                        'meitou_upgrade.0001.c',
+                                        'meitou_upgrade.0001.a1',
+                                        'meitou_upgrade.0001.a2',
+                                        'meitou_upgrade.0001.a3'})
+        for stage, cost in [(1, '70'), (2, '120'), (3, '200')]:
+            paid = options[f'meitou_upgrade.0001.a{stage}']
+            self.assertEqual(one(one(paid, 'if'), 'remove_short_term_gold'), cost)
+        for name in ('meitou_upgrade.0001.a1', 'meitou_upgrade.0001.a2',
+                     'meitou_upgrade.0001.a3', 'meitou_upgrade.0001.b'):
             guard = one(one(options[name], 'if'), 'limit')
             artifact = one(guard, 'scope:meitou_upgrade_target')
             self.assertEqual(one(artifact, 'artifact_owner'), 'root')
             self.assertEqual(one(artifact, 'meitou_upgrade_eligible_artifact_trigger'), 'yes')
-            self.assertTrue(any(key == 'add_artifact_modifier' and value == 'meitou_honed_blade_modifier'
+            self.assertTrue(any(key == 'meitou_apply_polish_effect' and value == 'yes'
                                 for key, _, value in walk(options[name])))
         self.assertFalse(any(key in ('add_artifact_modifier', 'remove_short_term_gold')
                              for key, _, _ in walk(options['meitou_upgrade.0001.c'])))

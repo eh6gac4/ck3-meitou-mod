@@ -106,6 +106,7 @@ meitou_travel.0106 = {
                 random_list = {
                     80 = {
                         create_artifact_odenta_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_odenta_found
                         trigger_event = { id = meitou_travel.0206 }
                     }
@@ -119,6 +120,7 @@ meitou_travel.0106 = {
                 random_list = {
                     45 = {
                         create_artifact_odenta_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_odenta_found
                         trigger_event = { id = meitou_travel.0206 }
                     }
@@ -141,6 +143,7 @@ meitou_travel.0106 = {
                 random_list = {
                     80 = {
                         create_artifact_odenta_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_odenta_found
                         trigger_event = { id = meitou_travel.0206 }
                     }
@@ -154,6 +157,7 @@ meitou_travel.0106 = {
                 random_list = {
                     45 = {
                         create_artifact_odenta_sword_effect = { OWNER = root }
+                        scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_odenta_found
                         trigger_event = { id = meitou_travel.0206 }
                     }
@@ -173,6 +177,7 @@ meitou_travel.0106 = {
             limit = { meitou_odenta_available_trigger = yes gold >= 80 }
             remove_short_term_gold = 80
             create_artifact_odenta_sword_effect = { OWNER = root }
+            scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
                         set_global_variable = meitou_odenta_found
                         trigger_event = { id = meitou_travel.0206 }
         }
@@ -197,6 +202,7 @@ meitou_travel.0106 = {
         if = {
             limit = { debug_only = yes is_ai = no meitou_odenta_available_trigger = yes }
             create_artifact_odenta_sword_effect = { OWNER = root }
+            scope:newly_created_artifact = { meitou_prepare_sword_effect = yes }
             set_global_variable = meitou_odenta_found
             trigger_event = { id = meitou_travel.0206 }
         }

@@ -138,7 +138,7 @@ if __name__ == '__main__':
         assert update != 0xffffffffffffffff
         assert fn('ISteamUGC_SetItemVisibility', BOOL, PTR, U64, I32)(ugc, update, 2)
         description = ('Private personal build for desktop / Steam Deck synchronization.\n'
-                       'Eight Japanese famous swords, travel acquisition events, repeatable sword upgrades, '
+                       'Eight Japanese famous swords, travel acquisition events, three-stage sword upgrades, '
                        'and original icons for Ookanehira, Juzumaru and Onimaru. Japanese and English.\n'
                        f'Current build: v{version}. Acquisition chance: 0.5% per eligible sword per province entry. '
                        'Upgrade chance: 10% per eligible swordsmith destination arrival; '
